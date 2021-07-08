@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Smart_Electrician_Support_System.Models.EmpIdentityModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpPassWord)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpPassWord)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpStatus)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EmpID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EmpID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EmpID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
