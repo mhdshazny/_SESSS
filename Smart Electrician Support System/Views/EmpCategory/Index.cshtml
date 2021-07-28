@@ -1,0 +1,115 @@
+﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.EmpCategoryViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}<h1>Index</h1>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCat_ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCat_Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCat_Descr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmpCat_Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpCat_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpCat_Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpCat_Descr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmpCat_Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmpCat_ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmpCat_ID">Details</a> |
+                    <a onclick="ValidationCheck('@item.EmpCat_ID')" data-id="@item.EmpCat_ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+
+
+        function ValidationCheck(e) {
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Empcategory/Delete",
+                        data: { id: e },
+                        success: function (result) {
+                            if (result == "Success") {
+                                swalWithBootstrapButtons.fire(
+                                    'Success',
+                                    'Your Data is Deleted :)',
+                                    'Success'
+                                ).then((res) => {
+                                    if (res.isConfirmed) {
+                                        location.reload();
+                                    }
+                                })
+                            }
+                            else {
+                                swalWithBootstrapButtons.fire(
+                                    'Error',
+                                    'Your Data is safe :)',
+                                    'error'
+                                )                            }
+                        }
+                    })
+
+                }
+                else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
+</script>

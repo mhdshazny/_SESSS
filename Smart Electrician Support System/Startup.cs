@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Smart_Electrician_Support_System.Services;
 using Microsoft.EntityFrameworkCore;
+using Smart_Electrician_Support_System.MapperProfiles;
+using AutoMapper;
 
 namespace Smart_Electrician_Support_System
 {
@@ -27,6 +29,8 @@ namespace Smart_Electrician_Support_System
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DbConnectionClass>(options => options.UseSqlServer(Configuration.GetConnectionString("ConString")));
+            //Auto Mapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
 

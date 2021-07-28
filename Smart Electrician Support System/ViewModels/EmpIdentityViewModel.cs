@@ -9,6 +9,9 @@ namespace Smart_Electrician_Support_System.ViewModels
 {
     public class EmpIdentityViewModel
     {
+        [DisplayName("Login ID")]
+        public string LoginID { get; set; }
+
         [DisplayName("Employee ID")]
         public string EmpID { get; set; }
                       
@@ -18,7 +21,8 @@ namespace Smart_Electrician_Support_System.ViewModels
         public string EmpEmail { get; set; }
                       
         [DisplayName("Employee Password")]
-        [Required]
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="Please enter a valid Password.")]
         public string EmpPassWord { get; set; }
                       
         [DisplayName("Employee Status")]
