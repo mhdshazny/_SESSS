@@ -15,5 +15,10 @@ namespace Smart_Electrician_Support_System.Services
         }
 
         public DbSet<EmpIdentityModel> EmpIdentityData { get; set; }
+        public DbSet<EmployeeModel> EmployeeData { get; set; } 
+        public DbSet<EmpCategoryModel> EmpCategoryData { get; set; }
+        public DbSet<AppointmentModel> AppointmentData { get; set; }
+        public DbSet<CustomerModel> CustomerData { get; set; }
+
     }
 }
