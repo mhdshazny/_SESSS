@@ -1,0 +1,12 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}
+
+<H1>Create Employee</H1>
+
+
+@await Html.PartialAsync("CreatePartial", new Smart_Electrician_Support_System.ViewModels.EmployeeViewModel())
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

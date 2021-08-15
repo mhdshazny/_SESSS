@@ -8,11 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Threading;
 using Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation;
 using Smart_Electrician_Support_System.Services;
 using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.MapperProfiles;
 using AutoMapper;
+using Microsoft.AspNetCore.Localization;
 
 namespace Smart_Electrician_Support_System
 {
@@ -21,6 +24,8 @@ namespace Smart_Electrician_Support_System
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -49,7 +54,20 @@ namespace Smart_Electrician_Support_System
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+
+            var supCultures = new[]
+            {
+                new CultureInfo("si-LK")
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("si-LK"),
+                SupportedCultures = supCultures,
+                SupportedUICultures = supCultures,
+                
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -64,5 +82,7 @@ namespace Smart_Electrician_Support_System
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+
     }
 }

@@ -1,0 +1,37 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.EmpCategoryViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}
+<div>
+    <h4>Employee Category Info</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.EmpCat_Type)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.EmpCat_Type)
+        </dd>
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.EmpCat_Descr)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.EmpCat_Descr)
+        </dd>
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.EmpCat_Status)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.EmpCat_Status)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+
+    <div class="col">
+        <div class="form-group">
+            <a asp-action="Index" asp-controller="EmpCategory" class="btn btn-block btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

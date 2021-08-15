@@ -1,115 +1,164 @@
 ﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.EmpCategoryViewModel>
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
-}<h1>Index</h1>
+    //EmpCategoryViewModel EmpCat = Smart_Electrician_Support_System.Models.EmpCategoryModel;
+
+}
 
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpCat_ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpCat_Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpCat_Descr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpCat_Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmpCat_ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmpCat_Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmpCat_Descr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmpCat_Status)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EmpCat_ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EmpCat_ID">Details</a> |
-                    <a onclick="ValidationCheck('@item.EmpCat_ID')" data-id="@item.EmpCat_ID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card">
+    <div class="card-header">
+        <h1>Manage Employee Category</h1>
+    </div>
+    <div class="card-body">
+        @await Html.PartialAsync("CreatePartial", new Smart_Electrician_Support_System.ViewModels.EmpCategoryViewModel())
+
+        <hr />
+
+        <div class="card-body">
+            <table class="table" id="IndexTable">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmpCat_ID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmpCat_Type)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmpCat_Descr)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EmpCat_Status)
+                        </th>
+                        <th class="text-danger">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpCat_ID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpCat_Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpCat_Descr)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpCat_Status)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.EmpCat_ID">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.EmpCat_ID">Details</a> |
+                                <a onclick="ValidationCheck('@item.EmpCat_ID')" class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <!-- Button trigger modal -->
+                                <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                    Launch demo modal
+                                </button>-->
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+@*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                @await Html.PartialAsync("Details", )
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#IndexTable").DataTable();
+    });
+</script>
 <script>
 
 
-        function ValidationCheck(e) {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
+    function ValidationCheck(e) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/Empcategory/Delete",
-                        data: { id: e },
-                        success: function (result) {
-                            if (result == "Success") {
-                                swalWithBootstrapButtons.fire(
-                                    'Success',
-                                    'Your Data is Deleted :)',
-                                    'Success'
-                                ).then((res) => {
-                                    if (res.isConfirmed) {
-                                        location.reload();
-                                    }
-                                })
-                            }
-                            else {
-                                swalWithBootstrapButtons.fire(
-                                    'Error',
-                                    'Your Data is safe :)',
-                                    'error'
-                                )                            }
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Empcategory/Delete",
+                    data: { id: e },
+                    success: function (result) {
+                        if (result == "Success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                'Your Data is Deleted :)',
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
                         }
-                    })
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                'Your Data is safe :)',
+                                'error'
+                            )
+                        }
+                    }
+                })
 
-                }
-                else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Your imaginary file is safe :)',
-                        'error'
-                    )
-                }
-            })
-        }
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your imaginary file is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
 </script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

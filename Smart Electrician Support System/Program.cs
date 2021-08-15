@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+using System.Threading;
 
 namespace Smart_Electrician_Support_System
 {
@@ -13,7 +15,9 @@ namespace Smart_Electrician_Support_System
     {
         public static void Main(string[] args)
         {
+
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +26,7 @@ namespace Smart_Electrician_Support_System
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+
     }
 }

@@ -1,0 +1,90 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}
+
+<h1>Employee Information</h1>
+
+<div>
+    <h4 class="">
+        Employee ID :   @Html.DisplayFor(model => model.EmpID)
+    </h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EmpCat_ID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmpCat_ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.fName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.fName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.lName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.lName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DoB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DoB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NIC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NIC)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Contact)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Contact)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+    </dl>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <a asp-action="Edit" asp-controller="Employee" asp-route-id="@Model.EmpID" class="btn btn-block btn-primary">Edit</a> 
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            <a asp-action="Index"  class="btn btn-block btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

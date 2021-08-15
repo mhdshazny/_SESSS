@@ -1,0 +1,161 @@
+﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.AppointmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h1>Manage Appointments</h1>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @await Html.PartialAsync("CreatePartial", new Smart_Electrician_Support_System.ViewModels.AppointmentViewModel())
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md col-lg col-sm col-xs-12">
+                <table class="table" id="IndexTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cus_ID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Appo_Subject)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Appo_Time)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Appo_Descr)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Appo_HandledBy)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Appo_Status)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cus_ID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appo_Subject)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appo_Time)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appo_Descr)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appo_HandledBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Appo_Status)
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Appo_ID"><i class="fas fa-edit"></i></a> |
+                                    <a asp-action="Details" asp-route-id="@item.Appo_ID"><i class="fas fa-info-circle"></i></a> |
+                                    <a onclick="ConfirmDelete('@item.Appo_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+
+
+
+    $(document).ready(function () {
+        var table = $('#IndexTable').DataTable({
+            responsive: true
+        });
+
+        new $.fn.dataTable.FixedHeader(table);
+    });
+
+
+    function ConfirmDelete(e) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Appointment/Delete",
+                    data: { id: e },
+                    success: function (result) {
+                        if (result == "Success") {
+                            swalWithBootstrapButtons.fire(
+                                'Success',
+                                'Your Data is Deleted :)',
+                                'Success'
+                            ).then((res) => {
+                                if (res.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }
+                        else {
+                            swalWithBootstrapButtons.fire(
+                                'Error',
+                                'Your Data is safe :)',
+                                'error'
+                            )
+                        }
+                    }
+                })
+
+            }
+            else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
+
+
+
+

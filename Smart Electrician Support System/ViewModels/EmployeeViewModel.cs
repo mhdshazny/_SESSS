@@ -9,13 +9,13 @@ namespace Smart_Electrician_Support_System.ViewModels
 {
     public class EmployeeViewModel
     {
-        [DisplayName("Employee ID")]
+        [DisplayName("Emp ID")]
         [Required(ErrorMessage = "Please provide a valid Employee ID.")]
         public string EmpID { get; set; }
 
-        [DisplayName("Employee Category")]
+        [DisplayName("Emp Category")]
         [Required(ErrorMessage = "Please provide a valid Employee Category.")]
-        public string EmpCatID { get; set; }
+        public string EmpCat_ID { get; set; }
 
         [DisplayName("First Name")]
         [Required(ErrorMessage = "Please provide your First Name.")]
@@ -38,7 +38,7 @@ namespace Smart_Electrician_Support_System.ViewModels
         [Required(ErrorMessage = "Please provide a valid Email address.")]
         public string NIC { get; set; }
 
-        [DisplayName("Employee Email")]
+        [DisplayName("Email")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Please provide a valid Email address.")]
         public string Email { get; set; }
@@ -48,12 +48,12 @@ namespace Smart_Electrician_Support_System.ViewModels
         [Required(ErrorMessage = "Please provide your Permenent Address.")]
         public string Address { get; set; }
 
-        [DisplayName("Contact No.")]
+        [DisplayName("Phone")]
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "Please provide a valid Phone Number.")]
         public string Contact { get; set; }
 
-        [DisplayName("Employee Status")]
+        [DisplayName("Status")]
         [Required(ErrorMessage = "Please provide a valid Employee Status.")]
         public string Status { get; set; }
 
