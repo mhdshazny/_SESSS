@@ -33,6 +33,21 @@ namespace Smart_Electrician_Support_System.Services
             return empCatV;
         }
 
+        internal static string NewID()
+        {
+            var Id = _context.EmpCategoryData
+                .Max(i => i.EmpCat_ID);
+            string NewID = "EMPCAT0001";
+            int num;
+            if (Id != null)
+            {
+                num = int.Parse(Id.Substring(6, 4)) + 1;
+                NewID = "EMPCAT" + num.ToString().PadLeft(4, '0');
+                return NewID;
+            }
+            return NewID;
+        }
+
         public static bool AddData(EmpCategoryViewModel collection)
         {
             try
@@ -40,7 +55,6 @@ namespace Smart_Electrician_Support_System.Services
                 if (collection != null)
                 {
                     var EmpCatVM = _mapper.Map<EmpCategoryModel>(collection);
-                    EmpCatVM.EmpCat_Status = "Active";
                     _context.Add(EmpCatVM);
                     _context.SaveChanges();
                     return true;
@@ -48,7 +62,7 @@ namespace Smart_Electrician_Support_System.Services
                 else
                     return false;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 
                 return false;
@@ -62,7 +76,6 @@ namespace Smart_Electrician_Support_System.Services
                 if (collection != null)
                 {
                     EmpCategoryModel EmpCatVM = _mapper.Map<EmpCategoryModel>(collection);
-                    EmpCatVM.EmpCat_Status = "Active";
                     _context.Update(EmpCatVM);
                     await _context.SaveChangesAsync();
                     return true;
@@ -70,7 +83,7 @@ namespace Smart_Electrician_Support_System.Services
                 else
                     return false;
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 
                 return false;
@@ -80,7 +93,6 @@ namespace Smart_Electrician_Support_System.Services
         public static EmpCategoryViewModel FindEmpCat(string id)
         {
             var EmpCat = _context.EmpCategoryData.Find(id);
-            var empCatV = new EmpCategoryViewModel();
             var EmpCatVM = _mapper.Map<EmpCategoryViewModel>(EmpCat);
            
             return EmpCatVM;
@@ -110,7 +122,7 @@ namespace Smart_Electrician_Support_System.Services
                 else
                     return false;
             }
-            catch (Exception err)
+            catch (Exception)
             {
 
                 return false;

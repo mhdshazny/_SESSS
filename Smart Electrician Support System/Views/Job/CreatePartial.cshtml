@@ -1,0 +1,180 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.JobViewModel
+
+@{
+    Model.Job_ID = ViewData["NewID"].ToString();
+
+}
+
+<div class="col-md-12 col-sm-12 col-lg-12">
+    <form asp-action="CreatePartial">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Job_ID" class="control-label"></label>
+                    <input asp-for="Job_ID" class="form-control" readonly />
+                    <span asp-validation-for="Job_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_ID" class="control-label"></label>
+                    <input asp-for="Appo_ID" class="form-control" />
+                    @*@Html.DropDownListFor(m => m.Appo_ID, ViewData["AppList"] as SelectList, "-Select Relevant Appointment-", new { @class = "form-control" })*@
+                    <span asp-validation-for="Appo_ID" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Site_Inspected_By" class="control-label"></label>
+                    <input asp-for="Site_Inspected_By" class="form-control" />
+                    @*@Html.DropDownListFor(m => m.PrID, ViewData["EmpList"] as SelectList, "-Select Inspector-", new { @class = "form-control" })*@
+                    <span asp-validation-for="Site_Inspected_By" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Site_Inspected_Date" class="control-label"></label>
+                    <input asp-for="Site_Inspected_Date" class="form-control" />
+                    <span asp-validation-for="Site_Inspected_Date" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Emp_Electr_ID" class="control-label"></label>
+                    <input asp-for="Emp_Electr_ID" class="form-control" />
+                    <span asp-validation-for="Emp_Electr_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="JobAssign_Time" class="control-label"></label>
+                    <input asp-for="JobAssign_Time" class="form-control" />
+                    <span asp-validation-for="JobAssign_Time" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="JobEnd_Time" class="control-label"></label>
+                    <input asp-for="JobEnd_Time" class="form-control" />
+                    <span asp-validation-for="JobEnd_Time" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Job_Subject" class="control-label"></label>
+                    <input asp-for="Job_Subject" class="form-control" />
+                    <span asp-validation-for="Job_Subject" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Job_Descr" class="control-label"></label>
+                    <input asp-for="Job_Descr" class="form-control" />
+                    <span asp-validation-for="Job_Descr" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Req_Components" class="control-label"></label>
+                    @*<input asp-for="Req_Components" class="form-control" />*@
+
+                    <div class="ui fluid multiple search selection dropdown">
+                        <input type="hidden" name="country">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select Country</div>
+                        <div class="menu">
+                            <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+                            <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
+                            <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
+                            <div class="item" data-value="bf"><i class="bf flag"></i>Burkina Faso</div>
+                            <div class="item" data-value="cg"><i class="cg flag"></i>Congo Brazzaville</div>
+                            <div class="item" data-value="cd"><i class="cd flag"></i>Congo</div>
+                            <div class="item" data-value="ck"><i class="ck flag"></i>Cook Islands</div>
+                            <div class="item" data-value="cr"><i class="cr flag"></i>Costa Rica</div>
+                            <div class="item" data-value="mg"><i class="mg flag"></i>Madagascar</div>
+                            <div class="item" data-value="se"><i class="se flag"></i>Sweden</div>
+                            <div class="item" data-value="ch"><i class="ch flag"></i>Switzerland</div>
+                            <div class="item" data-value="sy"><i class="sy flag"></i>Syria</div>
+                            <div class="item" data-value="tw"><i class="tw flag"></i>Taiwan</div>
+                            <div class="item" data-value="tj"><i class="tj flag"></i>Tajikistan</div>
+                            <div class="item" data-value="tz"><i class="tz flag"></i>Tanzania</div>
+                            <div class="item" data-value="th"><i class="th flag"></i>Thailand</div>
+                            <div class="item" data-value="tl"><i class="tl flag"></i>Timorleste</div>
+                            <div class="item" data-value="tg"><i class="tg flag"></i>Togo</div>
+                            <div class="item" data-value="tk"><i class="tk flag"></i>Tokelau</div>
+                            <div class="item" data-value="to"><i class="to flag"></i>Tonga</div>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <span asp-validation-for="Req_Components" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Job_Status" class="control-label"></label>
+                    <input asp-for="Job_Status" class="form-control" />
+                    <span asp-validation-for="Job_Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="reset" value="Cancel" class="btn btn-danger btn-block" />
+                </div>
+            </div>
+        </div>
+
+
+  
+
+    </form>
+</div>
+
+@*<script>
+    $('ui fluid multiple search selection dropdown')
+        .dropdown({
+            maxSelections: 3
+        })
+        ;
+    $('ui fluid multiple search selection dropdown')
+        .dropdown({
+            useLabels: false,
+            maxSelections: 3
+        })
+        ;
+</script>*@
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

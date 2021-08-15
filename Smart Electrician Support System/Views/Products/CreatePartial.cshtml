@@ -1,0 +1,67 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.ProductsViewModel
+@{
+    Model.PrID = ViewData["NewID"].ToString();
+
+}
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <form method="post" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrID" class="control-label"></label>
+                    <input asp-for="PrID" class="form-control" readonly />
+                    <span asp-validation-for="PrID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrName" class="control-label"></label>
+                    <input asp-for="PrName" class="form-control" />
+                    <span asp-validation-for="PrName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrDescr" class="control-label"></label>
+                    <textarea asp-for="PrDescr" class="form-control"></textarea>
+                    <span asp-validation-for="PrDescr" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrPrice" class="control-label"></label>
+                    <input asp-for="PrPrice" class="form-control" />
+                    <span asp-validation-for="PrPrice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrStatus" class="control-label"></label>
+                    <select class="custom-select" asp-for="PrStatus">
+                        <option value="Available">Available</option>
+                        <option value="Unavailable">Unavailable</option>
+                    </select>
+                    <span asp-validation-for="PrStatus" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+            </div>
+            <div class="col">
+
+                <input type="reset" value="Cancel" class="btn btn-danger btn-block" />
+            </div>
+        </div>
+    </form>
+</div>

@@ -28,7 +28,7 @@ namespace Smart_Electrician_Support_System.Controllers
         public ActionResult Index()
         {
             var empCatV = EmpCategoryService.EmpCatList();
-
+            ViewData["NewID"] = EmpCategoryService.NewID();
             return View(empCatV);
 
         }
@@ -42,11 +42,11 @@ namespace Smart_Electrician_Support_System.Controllers
         }
 
         // GET: EmpCategoryController/Create
-        public ActionResult Create()
-        {
+        //public ActionResult Create()
+        //{
 
-            return View();
-        }
+        //    return View();
+        //}
 
         // POST: EmpCategoryController/Create
         [HttpPost]
@@ -57,6 +57,7 @@ namespace Smart_Electrician_Support_System.Controllers
             {
                 if (collection != null)
                 {
+                    collection.EmpCat_ID = EmpCategoryService.NewID();
                     bool AddData = EmpCategoryService.AddData(collection);
 
                     if (AddData)
@@ -64,17 +65,17 @@ namespace Smart_Electrician_Support_System.Controllers
                         return RedirectToAction(nameof(Index),"EmpCategory","Data Successfully Added.") ;
                     }
                     else
-                        return RedirectToAction(nameof(Create), collection);
+                        return RedirectToAction(nameof(Index), collection);
  
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Create), collection);
+                    return RedirectToAction(nameof(Index), collection);
                 }
             }
-            catch(Exception err)
+            catch(Exception)
             {
-                return RedirectToAction(nameof(Create), collection);
+                return RedirectToAction(nameof(Index), collection);
             }
         }
 
@@ -117,7 +118,7 @@ namespace Smart_Electrician_Support_System.Controllers
                     return RedirectToAction(nameof(Edit), collection);
                 }
             }
-            catch (Exception err)
+            catch (Exception)
             {
                 return RedirectToAction(nameof(Edit), collection);
             }
@@ -160,5 +161,6 @@ namespace Smart_Electrician_Support_System.Controllers
                 return err.Message;
             }
         }
+
     }
 }

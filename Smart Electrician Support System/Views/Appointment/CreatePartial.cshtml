@@ -1,0 +1,94 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.AppointmentViewModel
+
+@{
+    Model.Appo_ID = ViewData["NewID"].ToString();
+
+}
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_ID" class="control-label"></label>
+                    <input asp-for="Appo_ID" class="form-control" readonly />
+                    <span asp-validation-for="Appo_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Cus_ID" class="control-label"></label>
+                    @* <input asp-for="Cus_ID" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Cus_ID, ViewData["CusList"] as SelectList, "-Select Customer-", new { @class = "form-control" })
+
+                    <span asp-validation-for="Cus_ID" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_Subject" class="control-label"></label>
+                    <input asp-for="Appo_Subject" class="form-control" />
+                    <span asp-validation-for="Appo_Subject" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_Time" class="control-label"></label>
+                    <input asp-for="Appo_Time" class="form-control" />
+                    <span asp-validation-for="Appo_Time" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_Descr" class="control-label"></label>
+                    <input asp-for="Appo_Descr" class="form-control" />
+                    <span asp-validation-for="Appo_Descr" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_HandledBy" class="control-label"></label>
+                    @*<input asp-for="Appo_HandledBy" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Appo_HandledBy, ViewData["EmpList"] as SelectList, "-Select Appointment handler-", new { @class = "form-control" })
+
+                    <span asp-validation-for="Appo_HandledBy" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="Appo_Status" class="control-label"></label>
+                    <input asp-for="Appo_Status" class="form-control" />
+                    <span asp-validation-for="Appo_Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="reset" value="Cancel" class="btn btn-danger btn-block" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

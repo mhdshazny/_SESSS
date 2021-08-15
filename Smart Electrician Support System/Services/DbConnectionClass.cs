@@ -19,6 +19,9 @@ namespace Smart_Electrician_Support_System.Services
         public DbSet<EmpCategoryModel> EmpCategoryData { get; set; }
         public DbSet<AppointmentModel> AppointmentData { get; set; }
         public DbSet<CustomerModel> CustomerData { get; set; }
+        public DbSet<ProductsModel> ProductsData { get; set; }
+        public DbSet<UsedProductsModel> UsedProductsData { get; set; }
+        public DbSet<JobModel> JobData { get; set; }
 
     }
 }

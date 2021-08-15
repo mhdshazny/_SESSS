@@ -12,7 +12,7 @@ namespace Smart_Electrician_Support_System.Models
     {
         [Key]
         public string EmpID { get; set; }
-        public string EmpCatID { get; set; }
+        public string EmpCat_ID { get; set; }
         public string fName { get; set; }
         public string lName { get; set; }
         public string Gender { get; set; }
