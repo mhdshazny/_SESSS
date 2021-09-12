@@ -98,7 +98,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Job Components:</h6>
                 <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
-                <a class="collapse-item" >Create a Job</a>
+                <a class="collapse-item">Create a Job</a>
 
                 <h6 class="collapse-header">Job Reports:</h6>
                 <a class="collapse-item" href="buttons.html">All Jobs Report</a>
@@ -116,8 +116,8 @@
              data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Performance Components:</h6>
-                <a class="collapse-item" >Manage Performances</a>
-                <a class="collapse-item">Alter Performance</a>
+                <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
+                <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
 
                 <h6 class="collapse-header">Performance Reports:</h6>
                 <a class="collapse-item" href="buttons.html">All Performance Report</a>
@@ -149,7 +149,7 @@
                 <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
                 <a class="collapse-item">Add Used Product</a>
 
-     
+
             </div>
         </div>
     </li>
@@ -169,7 +169,18 @@
             </div>
         </div>
     </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Set Dashboard Targets
+    </div>
 
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
+            <i class="fas fa-wrench"></i>
+            <span>Manage Dashboard</span>
+        </a>
+    </li>
     <!-- Nav Item - Charts -->
     <!-- Nav Item - Tables -->
     <!-- Divider -->

@@ -16,17 +16,33 @@ namespace Smart_Electrician_Support_System.Controllers
     {
         private readonly DbConnectionClass _context;
         private JobService _service;
+        private EmployeeService _EmpService;
+        private AppointmentService _AppoService;
+        private ProductsService _PrService;
+        private UsedProductsService _UsedPrService;
 
         public JobController(DbConnectionClass context, IMapper mapper)
         {
             _context = context;
             _service = new JobService(context, mapper);
+            _EmpService = new EmployeeService(context, mapper);
+            _AppoService = new AppointmentService(context, mapper);
+            _PrService = new ProductsService(context, mapper);
+            _UsedPrService = new UsedProductsService(context, mapper);
         }
 
         // GET: Job
         public IActionResult Index()
         {
             ViewData["NewID"] = JobService.NewID();
+            ViewData["AppList"] = new SelectList(AppointmentService.GetPendingList(),"Appo_ID", "Appo_Subject");
+
+
+            ViewData["EmpList"] = new SelectList(EmployeeService.GetListByType("Labour"), "EmpID","lName");
+            ViewData["ElecList"] = new SelectList(EmployeeService.GetListByType("Electrician"),"EmpID","lName");
+            ViewData["PrdList"] = new SelectList(ProductsService.GetList(),"PrID","PrName");
+            
+            
 
             var GetList = JobService.GetList();
             return View(GetList);
@@ -38,6 +54,9 @@ namespace Smart_Electrician_Support_System.Controllers
             try
             {
                 var Data = JobService.Find(id);
+                ViewBag.DateElapsed = JobService.DateTimeElapsed(id).ToString("%d");
+                ViewBag.DaysElapsed = JobService.DaysElapsed(id).ToString("%d");
+                ViewBag.UsedPrds = UsedProductsService.GetListByJid(id);
                 return View(Data);
             }
             catch (Exception er)
@@ -50,6 +69,12 @@ namespace Smart_Electrician_Support_System.Controllers
         // GET: Job/Create
         public IActionResult CreatePartial()
         {
+            ViewData["AppList"] = AppointmentService.GetList();
+            ViewData["EmpList"] = EmployeeService.GetList();
+            ViewData["ElecList"] = EmployeeService.GetListByType("Electrician");
+
+
+
             ViewData["NewID"] = JobService.NewID();
             return View();
         }
@@ -59,14 +84,13 @@ namespace Smart_Electrician_Support_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(JobViewModel collection)
+        public async Task<IActionResult> Create(JobViewModel collection)
         {
             try
             {
                 if (collection != null)
                 {
-                    collection.Appo_ID = JobService.NewID();
-                    bool AddData = JobService.Add(collection);
+                    bool AddData = await JobService.Add(collection);
 
                     if (AddData)
                     {
@@ -93,6 +117,14 @@ namespace Smart_Electrician_Support_System.Controllers
             try
             {
                 var Data = JobService.Find(id);
+                ViewData["AppList"] = new SelectList(AppointmentService.GetPendingList(), "Appo_ID", "Appo_Subject");
+
+
+                ViewData["EmpList"] = new SelectList(EmployeeService.GetListByType("Labour"), "EmpID", "lName");
+                ViewData["ElecList"] = new SelectList(EmployeeService.GetListByType("Electrician"), "EmpID", "lName");
+                ViewData["PrdList"] = new SelectList(ProductsService.GetList(), "PrID", "PrName");
+
+
                 return View(Data);
             }
             catch (Exception err)
@@ -138,9 +170,9 @@ namespace Smart_Electrician_Support_System.Controllers
         }
 
         // POST: Job/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<string> DeleteConfirmed(string id)
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<string> Delete(string id)
         {
             try
             {

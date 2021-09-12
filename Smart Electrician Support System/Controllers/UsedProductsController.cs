@@ -70,7 +70,7 @@ namespace Smart_Electrician_Support_System.Controllers
             {
                 if (collection != null)
                 {
-                    collection.PrID = UsedProductsService.NewID();
+                    collection.Pr_Used_ID = UsedProductsService.NewID();
                     bool AddData = UsedProductsService.Add(collection);
 
                     if (AddData)

@@ -31,6 +31,21 @@ namespace Smart_Electrician_Support_System.Services
             return GetList;
         }
 
+        internal static List<EmployeeViewModel> GetListByType(string type)
+        {
+            var empType = _context.EmpCategoryData.Where(i => i.EmpCat_Type == type).FirstOrDefault();
+
+            var DataList = _context.EmployeeData.Where(i=>i.EmpCat_ID==empType.EmpCat_ID).ToList();
+            var GetList = new List<EmployeeViewModel>();
+            foreach (var item in DataList)
+            {
+                var EmpCatVM = _mapper.Map<EmployeeViewModel>(item);
+                EmpCatVM.EmpCat_ID = EmpCat(EmpCatVM.EmpCat_ID);
+                GetList.Add(EmpCatVM);
+            }
+            return GetList;
+        }
+
         public static string EmpCat(string id)
         {
             var CatName = _context.EmpCategoryData.Find(id);
@@ -57,6 +72,8 @@ namespace Smart_Electrician_Support_System.Services
                 return false;
             }
         }
+
+
         public static async Task<bool> Update(EmployeeViewModel collection)
         {
             try

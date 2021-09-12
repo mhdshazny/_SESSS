@@ -20,7 +20,7 @@ namespace Smart_Electrician_Support_System.Models
         public DateTime JobEnd_Time { get; set; }
         public string Job_Subject { get; set; }
         public string Job_Descr { get; set; }
-        public string Req_Components { get; set; }
+        public DateTime JobEnd_TimeExpected { get; set; }
         public string Job_Status { get; set; }
     }
 }
