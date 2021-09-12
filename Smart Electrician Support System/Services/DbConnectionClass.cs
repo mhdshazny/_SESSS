@@ -22,6 +22,7 @@ namespace Smart_Electrician_Support_System.Services
         public DbSet<ProductsModel> ProductsData { get; set; }
         public DbSet<UsedProductsModel> UsedProductsData { get; set; }
         public DbSet<JobModel> JobData { get; set; }
+        public DbSet<DashTargetModel> DashTargetData { get; set; }
 
     }
 }

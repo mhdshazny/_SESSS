@@ -1,12 +1,11 @@
 ﻿@model Smart_Electrician_Support_System.ViewModels.JobViewModel
 
 @{
-    Model.Job_ID = ViewData["NewID"].ToString();
-
+   Model.Job_ID = ViewData["NewID"].ToString();
 }
 
 <div class="col-md-12 col-sm-12 col-lg-12">
-    <form asp-action="CreatePartial">
+    <form asp-action="Create">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="row">
@@ -20,8 +19,8 @@
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Appo_ID" class="control-label"></label>
-                    <input asp-for="Appo_ID" class="form-control" />
-                    @*@Html.DropDownListFor(m => m.Appo_ID, ViewData["AppList"] as SelectList, "-Select Relevant Appointment-", new { @class = "form-control" })*@
+                    @*<input asp-for="Appo_ID" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Appo_ID, ViewData["AppList"] as SelectList, "-Select Relevant Appointment-", new { @class = "form-control" })
                     <span asp-validation-for="Appo_ID" class="text-danger"></span>
                 </div>
             </div>
@@ -30,15 +29,15 @@
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Site_Inspected_By" class="control-label"></label>
-                    <input asp-for="Site_Inspected_By" class="form-control" />
-                    @*@Html.DropDownListFor(m => m.PrID, ViewData["EmpList"] as SelectList, "-Select Inspector-", new { @class = "form-control" })*@
+                    @*<input asp-for="Site_Inspected_By" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Site_Inspected_By, ViewData["EmpList"] as SelectList, "-Select Inspector-", new { @class = "form-control" })
                     <span asp-validation-for="Site_Inspected_By" class="text-danger"></span>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Site_Inspected_Date" class="control-label"></label>
-                    <input asp-for="Site_Inspected_Date" class="form-control" />
+                    <input asp-for="Site_Inspected_Date" class="form-control" value="@DateTime.Today" />
                     <span asp-validation-for="Site_Inspected_Date" class="text-danger"></span>
                 </div>
             </div>
@@ -47,14 +46,15 @@
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Emp_Electr_ID" class="control-label"></label>
-                    <input asp-for="Emp_Electr_ID" class="form-control" />
+                    @*<input asp-for="Emp_Electr_ID" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.Emp_Electr_ID, ViewData["ElecList"] as SelectList, "-Appointed Electician-", new { @class = "form-control" })
                     <span asp-validation-for="Emp_Electr_ID" class="text-danger"></span>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label asp-for="JobAssign_Time" class="control-label"></label>
-                    <input asp-for="JobAssign_Time" class="form-control" />
+                    <input asp-for="JobAssign_Time" class="form-control" value="@DateTime.Today" />
                     <span asp-validation-for="JobAssign_Time" class="text-danger"></span>
                 </div>
             </div>
@@ -63,13 +63,13 @@
             <div class="col"></div>
             <div class="col"></div>
         </div>
-        
+
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label asp-for="JobEnd_Time" class="control-label"></label>
-                    <input asp-for="JobEnd_Time" class="form-control" />
-                    <span asp-validation-for="JobEnd_Time" class="text-danger"></span>
+                    <label asp-for="JobEnd_TimeExpected" class="control-label"></label>
+                    <input asp-for="JobEnd_TimeExpected" class="form-control" value="@DateTime.Today" />
+                    <span asp-validation-for="JobEnd_TimeExpected" class="text-danger"></span>
                 </div>
             </div>
             <div class="col">
@@ -80,67 +80,31 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Job_Descr" class="control-label"></label>
-                    <input asp-for="Job_Descr" class="form-control" />
+                    <textarea asp-for="Job_Descr" class="form-control" placeholder="--Job Description(If any)--"></textarea>
                     <span asp-validation-for="Job_Descr" class="text-danger"></span>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <label asp-for="Req_Components" class="control-label"></label>
-                    @*<input asp-for="Req_Components" class="form-control" />*@
 
-                    <div class="ui fluid multiple search selection dropdown">
-                        <input type="hidden" name="country">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Select Country</div>
-                        <div class="menu">
-                            <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
-                            <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
-                            <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
-                            <div class="item" data-value="bf"><i class="bf flag"></i>Burkina Faso</div>
-                            <div class="item" data-value="cg"><i class="cg flag"></i>Congo Brazzaville</div>
-                            <div class="item" data-value="cd"><i class="cd flag"></i>Congo</div>
-                            <div class="item" data-value="ck"><i class="ck flag"></i>Cook Islands</div>
-                            <div class="item" data-value="cr"><i class="cr flag"></i>Costa Rica</div>
-                            <div class="item" data-value="mg"><i class="mg flag"></i>Madagascar</div>
-                            <div class="item" data-value="se"><i class="se flag"></i>Sweden</div>
-                            <div class="item" data-value="ch"><i class="ch flag"></i>Switzerland</div>
-                            <div class="item" data-value="sy"><i class="sy flag"></i>Syria</div>
-                            <div class="item" data-value="tw"><i class="tw flag"></i>Taiwan</div>
-                            <div class="item" data-value="tj"><i class="tj flag"></i>Tajikistan</div>
-                            <div class="item" data-value="tz"><i class="tz flag"></i>Tanzania</div>
-                            <div class="item" data-value="th"><i class="th flag"></i>Thailand</div>
-                            <div class="item" data-value="tl"><i class="tl flag"></i>Timorleste</div>
-                            <div class="item" data-value="tg"><i class="tg flag"></i>Togo</div>
-                            <div class="item" data-value="tk"><i class="tk flag"></i>Tokelau</div>
-                            <div class="item" data-value="to"><i class="to flag"></i>Tonga</div>
-
-                        </div>
-                    </div>
-
-
-
-
-                    <span asp-validation-for="Req_Components" class="text-danger"></span>
-                </div>
-            </div>
         </div>
-        
+
         <div class="row">
             <div class="col">
                 <div class="form-group">
                     <label asp-for="Job_Status" class="control-label"></label>
-                    <input asp-for="Job_Status" class="form-control" />
+                    <input asp-for="Job_Status" class="form-control" value="Accepted" readonly/>
+
+                    
                     <span asp-validation-for="Job_Status" class="text-danger"></span>
                 </div>
             </div>
             <div class="col"></div>
         </div>
+        <hr />
         <div class="row">
             <div class="col">
                 <div class="form-group">
@@ -155,26 +119,50 @@
         </div>
 
 
-  
+
 
     </form>
 </div>
 
-@*<script>
-    $('ui fluid multiple search selection dropdown')
-        .dropdown({
-            maxSelections: 3
-        })
-        ;
-    $('ui fluid multiple search selection dropdown')
-        .dropdown({
-            useLabels: false,
-            maxSelections: 3
-        })
-        ;
-</script>*@
+
+
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    var counter = $('#TotalCount');
+
+    $('#btnAdd').click(function () {
+        var $div = $('div[id^="opDiv_"]:last');
+        var num = parseInt($div.prop("id").match(/\d+/g), 10) + 1;
+        var $clone = $div.clone();
+        $clone.prop("id", "opDiv_" + num);
+
+        //$clone.find('.dayDrop').prop('id', 'OperationalDetails[' + num + '].OperationalDay');
+        //$clone.find('.dayDrop').prop('name', 'OperationalDetails[' + num + '].OperationalDay');
+
+        //$clone.find('.timeDropStart').prop('id', 'OperationalDetails[' + num + '].StartTime');
+        //$clone.find('.timeDropStart').prop('name', 'OperationalDetails[' + num + '].StartTime');
+
+        //$clone.find('.timeDropEnd').prop('id', 'OperationalDetails[' + num + '].EndTime');
+        //$clone.find('.timeDropEnd').prop('name', 'OperationalDetails[' + num + '].EndTime');
+
+        //$clone.find('.delButton').show();
+        //$clone.find('.clearButton').prop('id', 'cmd_' + num);
+
+
+
+        $('#opHours').append($clone);
+
+        //$('#opDiv_' + num).on('click', '.clearButton', function () {
+        //    var id = this.id.substring(4);
+        //    alert(id);
+        //    $("#opDiv_" + id).remove();
+        //});
+
+        event.preventDefault();
+    });
+</script>

@@ -31,10 +31,34 @@ namespace Smart_Electrician_Support_System.Controllers
         {
 
             ViewData["NewID"] = AppointmentService.NewID();
-            ViewData["EmpList"] = new SelectList(EmployeeService.GetList(), "EmpID", "lName"); ;
-            ViewData["CusList"] = new SelectList(CustomerService.GetList(), "CusID", "CuslName"); ;
+
+            List<EmployeeViewModel> empLi = empLiDDL(EmployeeService.GetList());
+            ViewData["EmpList"] = new SelectList(empLi, "EmpID", "lName");
+
+            List<CustomerViewModel> cusLi = cusLiDDL(CustomerService.GetList());
+            ViewData["CusList"] = new SelectList(cusLi, "CusID", "CuslName"); ;
+
             var GetList = AppointmentService.GetList();
             return View(GetList);
+        }
+
+        public List<EmployeeViewModel> empLiDDL(List<EmployeeViewModel> empLi)
+        {
+            foreach (var item in empLi)
+            {
+                item.lName = item.fName+" "+ item.lName + " (" + item.EmpID + ")";
+            }
+            return empLi;
+        }
+
+
+        public List<CustomerViewModel> cusLiDDL(List<CustomerViewModel> cusLi)
+        {
+            foreach (var item in cusLi)
+            {
+                item.CuslName = item.CusfName + " " + item.CuslName + " (" + item.CusID + ")";
+            }
+            return cusLi;
         }
 
         // GET: Appointment/Details/5

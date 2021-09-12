@@ -16,7 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.MapperProfiles;
 using AutoMapper;
 using Microsoft.AspNetCore.Localization;
-
 namespace Smart_Electrician_Support_System
 {
     public class Startup

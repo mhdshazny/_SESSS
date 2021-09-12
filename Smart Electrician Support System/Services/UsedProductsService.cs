@@ -79,6 +79,19 @@ namespace Smart_Electrician_Support_System.Services
                 return false;
             }
         }
+
+        internal static List<UsedProductsViewModel> GetListByJid(string id)
+        {
+            var DataList = _context.UsedProductsData.Where(i=>i.Job_ID==id).ToList();
+            var GetList = new List<UsedProductsViewModel>();
+            foreach (var item in DataList)
+            {
+                var VM = _mapper.Map<UsedProductsViewModel>(item);
+                GetList.Add(VM);
+            }
+            return GetList;
+        }
+
         internal static string NewID()
         {
             var Id = _context.UsedProductsData

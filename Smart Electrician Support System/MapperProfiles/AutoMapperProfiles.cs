@@ -30,6 +30,8 @@ namespace Smart_Electrician_Support_System.MapperProfiles
                     .ReverseMap();
             CreateMap<UsedProductsModel, UsedProductsViewModel>()
                     .ReverseMap();
+            CreateMap<DashTargetModel, DashTargetViewModel>()
+                    .ReverseMap();
         }
     }
 }

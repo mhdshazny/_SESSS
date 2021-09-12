@@ -31,6 +31,17 @@ namespace Smart_Electrician_Support_System.Services
             }
             return GetList;
         }
+        public static List<AppointmentViewModel> GetPendingList()
+        {
+            var DataList = _context.AppointmentData.Where(i=>i.Appo_Status=="Pending").ToList();
+            var GetList = new List<AppointmentViewModel>();
+            foreach (var item in DataList)
+            {
+                var VM = _mapper.Map<AppointmentViewModel>(item);
+                GetList.Add(VM);
+            }
+            return GetList;
+        }
 
         public static bool Add(AppointmentViewModel collection)
         {
