@@ -48,32 +48,92 @@ namespace Smart_Electrician_Support_System.Services
             }
         }
 
+        internal int[] GetJobStatus()
+        {
+            int[] outData = new int[5];
+
+            var data = _context.JobData.ToList();
+
+            outData[0] = data.Where(i => i.Job_Status == "Finished").Count();
+            outData[1] = data.Where(i => i.Job_Status == "Pending").Count();
+            outData[2] = data.Where(i => i.Job_Status == "Accepted").Count();
+            outData[3] = data.Where(i => i.Job_Status == "Closed").Count();
+            outData[4] = data.Where(i => i.Job_Status == "Terminated").Count();
+
+            return outData;
+        }
+
+        internal List<int> GetJobsMonthData()
+        {
+            var data = _context.JobData.ToList();
+            List<int> outData = new List<int>();
+            for (int i = 0; i < 12; i++)
+            {
+                int count = 0;
+                foreach (var item in data)
+                {
+                    if (item.JobEnd_Time.Month==i)
+                    {
+                        count = count + 1;
+                    }
+                }
+                outData.Add(count);
+            }
+            return outData;
+        }
+
         internal DashboardTopEmployeesViewModel[] GetTopEmps()
         {
             List<DashboardTopEmployeesViewModel> li = new List<DashboardTopEmployeesViewModel>();
-            DashboardTopEmployeesViewModel[] final = new DashboardTopEmployeesViewModel[5];
+            DashboardTopEmployeesViewModel[] final = new DashboardTopEmployeesViewModel[4];
 
-            var data = _context.JobData.ToList();
-            var empLi = _context.EmployeeData.Where(i=>i.EmpCat_ID== "EMPCAT0004").ToList();
+            var JobList = _context.JobData.ToList();
+            var EmpData = JobList.Select(x=>x.Emp_Electr_ID).ToList().Distinct();
+            //var empLi = _context.EmployeeData.Where(i=>i.EmpCat_ID== "EMPCAT0004").ToList();
 
+    
 
-            foreach(var item in empLi)
+            foreach (var EmpItem in EmpData)
             {
-                var details = data.Where(i => i.Emp_Electr_ID == item.EmpID).ToList();
-                int totJobs = details.Count();
-                int doneJobs = details.Where(i => i.Job_Status == "Finished").Count();
+                var empInfo = _context.EmployeeData.Find(EmpItem);
 
-                DashboardTopEmployeesViewModel temp = new DashboardTopEmployeesViewModel();
-                temp.EmpID = item.EmpID;
-                temp.EmpName = item.fName + " " + item.lName;
-                temp.num = 0;
-                double score = (doneJobs / totJobs) * 100;
-                temp.score = score;
+                DashboardTopEmployeesViewModel obj = new DashboardTopEmployeesViewModel();
+                obj.EmpID = EmpItem;
+                obj.EmpName = empInfo.fName + " " + empInfo.lName;
+                obj.num = 0;
 
-                li.Add(temp);
+                double jobCount = 0;
+                double DoneCount = 0;
+                
+                foreach (var JobItem in JobList)
+                {
+                    if (JobItem.Emp_Electr_ID==EmpItem)
+                    {
+                        if (JobItem.Job_Status == "Finished")
+                        {
+                            DoneCount++;
+                        }
+                        jobCount++;
+                    }
+
+                }
+                double score = (DoneCount / jobCount) * 100;
+                obj.score = score;
+                li.Add(obj);
+
+                //final = li.OrderByDescending(i => i.score).ToArray();
+
+                if (li.Count() > 4)
+                {
+                    break;
+                }
             }
 
-            final= li.OrderByDescending(i=>i.score).ToArray();
+
+
+
+
+            final = li.OrderByDescending(i => i.score).ToArray();
 
 
             return final;

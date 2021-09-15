@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.Services;
+using Smart_Electrician_Support_System.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +13,44 @@ namespace Smart_Electrician_Support_System.Controllers
 {
     public class IdentityController : Controller
     {
-        public DbConnectionClass _context { get; set; }
-        public IdentityService _identityService ;
+        private DbConnectionClass _context;
+        private IdentityService _identityService ;
 
-        public IdentityController(DbConnectionClass context)
+        public IdentityController(DbConnectionClass context, IMapper mapper)
         {
             _context = context;
-            _identityService = new IdentityService(context);
+            _identityService = new IdentityService(context,mapper);
         }
         public IActionResult EmpLogin()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult EmpLogin(EmpIdentityViewModel data)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SignUp(EmpIdentityViewModel data)
+        {
+            try
+            {
+                if (data != null)
+                {
+                    if (_identityService.SignUp(data)==true)
+                        return RedirectToAction("EmpLogin", "Identity", "LoginSuccess");
+                    else
+                        return RedirectToAction("EmpLogin", "Identity", "LoginFailed");
+
+                }
+                return RedirectToAction("EmpLogin", "Identity", data);
+            }
+            catch (Exception er)
+            {
+                return RedirectToAction("EmpLogin", "Identity", data);
+            }
+
         }
         [HttpPost]
         public IActionResult Login(string EmpEmail, string EmpPassWord)
@@ -44,7 +74,12 @@ namespace Smart_Electrician_Support_System.Controllers
                 {
                     if (IdentityService.VerifyLogin(EmpEmail,EmpPassWord) == true)
                     {
-                        return RedirectToAction("Home", "EmpDashboard", "Login Success.");
+                        if (SessionSet(EmpEmail,EmpPassWord))
+                        {
+                            return RedirectToAction("Index", "Home", "Login Success.");
+                        }
+                        return RedirectToAction("EmpLogin", "Identity", "SessionFailed");
+
                     }
                     else
                     {
@@ -62,6 +97,33 @@ namespace Smart_Electrician_Support_System.Controllers
                 return RedirectToAction("EmpLogin", "Identity", err.Message);
 
             }
+        }
+
+        public bool SessionSet(string email,string passw)
+        {
+            try
+            {
+                var data = _identityService.Find(email, passw);
+
+                HttpContext.Session.SetString("SessionEmpEmail", data.EmpEmail);
+                HttpContext.Session.SetString("SessionEmpID", data.EmpID);
+                HttpContext.Session.SetString("SessionEmpRole", data.EmpRole);
+
+                return true;
+            }
+            catch (Exception err)
+            {
+                return false;
+            }
+
+
+        }
+
+        public void clearSession()
+        {
+            HttpContext.Session.SetString("SessionEmpEmail", "");
+            HttpContext.Session.SetString("SessionEmpID", "");
+            HttpContext.Session.SetString("SessionEmpRole", "");
         }
 
     }

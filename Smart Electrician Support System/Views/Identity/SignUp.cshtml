@@ -1,0 +1,47 @@
+﻿@model Smart_Electrician_Support_System.Models.EmpIdentityModel
+
+<h4>EmpIdentityModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignUp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LoginID" class="control-label"></label>
+                <input asp-for="LoginID" class="form-control" />
+                <span asp-validation-for="LoginID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpID" class="control-label"></label>
+                <input asp-for="EmpID" class="form-control" />
+                <span asp-validation-for="EmpID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpEmail" class="control-label"></label>
+                <input asp-for="EmpEmail" class="form-control" />
+                <span asp-validation-for="EmpEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpPassWord" class="control-label"></label>
+                <input asp-for="EmpPassWord" class="form-control" />
+                <span asp-validation-for="EmpPassWord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmpStatus" class="control-label"></label>
+                <input asp-for="EmpStatus" class="form-control" />
+                <span asp-validation-for="EmpStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

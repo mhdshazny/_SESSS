@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Smart_Electrician_Support_System.Models
 {
+    
     [Table("tbl_EmpLogin")]
     public class EmpIdentityModel
     {
         //Temporary Identity Model
         [Key]
-        public string LoginID { get; set; }
+        public int LoginID { get; set; }
         public string EmpID { get; set; }
         public string EmpEmail { get; set; }
         public string EmpPassWord { get; set; }

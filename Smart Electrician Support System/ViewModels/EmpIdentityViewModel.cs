@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,8 +25,14 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DataType(DataType.Password)]
         [Required(ErrorMessage ="Please enter a valid Password.")]
         public string EmpPassWord { get; set; }
-                      
+
+        [NotMapped]
+        [DisplayName("Employee Role")]
+        public string EmpRole { get; set; }
+
         [DisplayName("Employee Status")]
         public string EmpStatus { get; set; }
+
+
     }
 }
