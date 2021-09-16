@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.Models;
 using Smart_Electrician_Support_System.ViewModels;
 using System;
@@ -35,7 +36,7 @@ namespace Smart_Electrician_Support_System.Services
             return GetList;
         }
 
-        public static async Task<bool> Add(JobViewModel collection)
+        public static async Task<bool> AddAsync(JobViewModel collection)
         {
             try
             {
@@ -43,9 +44,9 @@ namespace Smart_Electrician_Support_System.Services
                 {
                     collection.JobEnd_Time = collection.JobAssign_Time;
                     var MapData = _mapper.Map<JobModel>(collection);
-                    _context.Add(MapData);
-                    _context.SaveChanges();
-                    bool appStatus =  updateStatus(MapData.Appo_ID);
+                    await _context.AddAsync(MapData);
+                    await _context.SaveChangesAsync();
+                    bool appStatus = await  updateStatusAsync(MapData.Appo_ID);
                     if (appStatus)
                     {
                         return true;
@@ -57,19 +58,18 @@ namespace Smart_Electrician_Support_System.Services
             }
             catch (Exception err)
             {
-                err.ToString();
                 return false;
             }
         }
 
-        private static bool updateStatus(string id)
+        private static async Task<bool> updateStatusAsync(string id)
         {
             try
             {
-                AppointmentModel apptObj = _context.AppointmentData.Where(i=>i.Appo_ID==id).FirstOrDefault();
+                AppointmentModel apptObj = await _context.AppointmentData.Where(i=>i.Appo_ID==id).FirstOrDefaultAsync();
                 apptObj.Appo_Status = "Accepted";
                 _context.Update(apptObj);
-                _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception err)
