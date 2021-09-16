@@ -43,30 +43,38 @@ namespace Smart_Electrician_Support_System.Services
                 int monthCount = item.JobEnd_Time.Month;
                 monthLi.Add(monthCount);
             }
-            monthLi.Distinct();
-            obj.AvgJobsPerMonths = jobs.Count / monthLi.Count;
 
-
-            obj.EmpID = emp.EmpID;
-            obj.Name = emp.fName + " " + emp.lName;
-            obj.JobCount = jobs.Count;
-            obj.JobsDoneCount = jobs.Where(i => i.Job_Status == "Completed").Count();
-            obj.JobsCancelledCount = jobs.Where(i => i.Job_Status == "Cancelled").Count();
-            obj.JobsDOTCount = jobs.Where(i => i.Job_Status == "Completed_DOT").Count();
-            obj.JobsPendingCount = jobs.Where(i => i.Job_Status == "Pending").Count();
-
-            if (obj.JobCount==obj.JobsDOTCount)
+            if (jobs.Count > 0)
             {
-                obj.PerfStatus = "OutStanding Performance";
+                monthLi.Distinct();
+                obj.AvgJobsPerMonths = jobs.Count / monthLi.Count;
+
+                obj.EmpID = emp.EmpID;
+                obj.Name = emp.fName + " " + emp.lName;
+                obj.JobCount = jobs.Count;
+                obj.JobsDoneCount = jobs.Where(i => i.Job_Status == "Completed").Count();
+                obj.JobsCancelledCount = jobs.Where(i => i.Job_Status == "Cancelled").Count();
+                obj.JobsDOTCount = jobs.Where(i => i.Job_Status == "Completed_DOT").Count();
+                obj.JobsPendingCount = jobs.Where(i => i.Job_Status == "Pending").Count();
+
+                if (obj.JobCount == obj.JobsDOTCount)
+                {
+                    obj.PerfStatus = "OutStanding Performance";
+                }
+                if (obj.JobCount == obj.JobsDoneCount)
+                {
+                    obj.PerfStatus = "Excellent Performance";
+                }
+                int JobsPending = jobs.Where(i => i.Job_Status == "Pending").Count();
+                if (obj.JobsDoneCount < JobsPending)
+                {
+                    obj.PerfStatus = "Poor Performance";
+                }
             }
-            if(obj.JobCount==obj.JobsDoneCount)
+            else
             {
-                obj.PerfStatus = "Excellent Performance";
-            }
-            int JobsPending = jobs.Where(i => i.Job_Status == "Pending").Count();
-            if (obj.JobsDoneCount < JobsPending)
-            {
-                obj.PerfStatus = "Poor Performance";
+                obj.Name = emp.fName + " " + emp.lName;
+                obj.PerfStatus = "No Data Found About Regarding :" +id;
             }
 
             return obj;

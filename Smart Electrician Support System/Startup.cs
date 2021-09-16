@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.MapperProfiles;
 using AutoMapper;
 using Microsoft.AspNetCore.Localization;
+using Rotativa.AspNetCore;
+
 namespace Smart_Electrician_Support_System
 {
     public class Startup
@@ -32,15 +34,20 @@ namespace Smart_Electrician_Support_System
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
+            });
             services.AddDbContext<DbConnectionClass>(options => options.UseSqlServer(Configuration.GetConnectionString("ConString")));
             //Auto Mapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+            services.AddHttpContextAccessor();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -66,7 +73,7 @@ namespace Smart_Electrician_Support_System
                 SupportedUICultures = supCultures,
                 
             });
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -80,6 +87,8 @@ namespace Smart_Electrician_Support_System
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)env);
+
         }
 
 

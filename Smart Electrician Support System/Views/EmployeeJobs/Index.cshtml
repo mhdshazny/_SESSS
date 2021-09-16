@@ -5,156 +5,200 @@
 }
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<style>
+    .select2-container .select2-selection--single {
+        height: 34px !important;
+    }
+
+    .select2-container--default .select2-selection--single {
+        border: 1px solid #ccc !important;
+        border-radius: 0px !important;
+    }
+</style>
 
 
 
 
-<!-- Content Row -->
-<div class="row">
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Avarage Jobs per Month
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Average: @Model.AvgJobsPerMonths </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-chart-area fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h1>Performance of Electrician &nbsp; &nbsp;      @if (Model != null) { <strong class="text-danger"> @Html.ValueFor(x => x.Name) : @Html.ValueFor(i => i.EmpID)</strong> } </h1>
         </div>
     </div>
+    <br />
+    <div class="row">
+        <div class="col-xl col-md mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <form asp-action="Index" asp-controller="EmployeeJobs" method="post">
+                        <div class="row">
+                            <div class="col-2 mt-2">
+                                <h3>Select Employee</h3>
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Completed Job Count
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"> Completed : @Model.JobsDoneCount</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            </div>
+                            <div class="col-5">
+                                @Html.DropDownListFor(i => i.EmpID, ViewData["EmpList"] as SelectList, "-Select Employee -", new { @class = "form-control select2" })
 
-    <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            Electrcian Performance Status
-                        </div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Status :</div>
+                                @*<div class="form-group">
+                                    <label asp-for="@Model.EmpID" class="control-label"></label>
+                                    <input asp-for="@Model.EmpID" class="form-control" />
+                                    <span asp-validation-for="@Model.EmpID" class="text-danger"></span>
+                                </div>*@
                             </div>
                             <div class="col">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.PerfStatus</div>
+                                <div class="form-group">
+                                    <input type="submit" value="Search" class="btn btn-primary btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br />
+        @if (Model != null)
+        {
+            <div class="row">
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Avarage Jobs per Month
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Average: @Model.AvgJobsPerMonths </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-chart-area fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Completed Job Count
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"> Completed : @Model.JobsDoneCount</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                        Electrcian Performance Status
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Status :</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.PerfStatus</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Requests Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Pending Jobs
+                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.JobsPendingCount</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Row -->
+
+            <div class="row">
+
+                <!-- Area Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Electrician Performance Graph (Monthly)</h6>
+
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-area">
+                                <canvas id="myAreaChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Electrician Jobs and Status</h6>
+
+                        </div>
+                        <!-- Card Body -->
+                        <div class="card-body">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="myPieChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="color: #9e60ff;"></i> Completed
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="color: #1cc88a;"></i> Pending
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="color: #ff0000"></i> Rejected
+                                </span>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                            Pending Jobs
-                        </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.JobsPendingCount</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-exclamation-triangle fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Content Row -->
-
-<div class="row">
-
-    <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Electrician Performance Graph (Monthly)</h6>
-                
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Electrician Jobs and Status</h6>
-
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                </div>
-                <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                        <i class="fas fa-circle" style="color: #9e60ff;"></i> Completed
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle" style="color: #1cc88a;"></i> Pending
-                    </span>
-                    <span class="mr-2">
-                        <i class="fas fa-circle" style="color: #ff0000"></i> Rejected
-                    </span>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<script>
+            <script>
 
     /// Graph JS Codes
 
@@ -332,4 +376,17 @@
 
 
 
-</script>
+            </script>
+        }
+        <!-- Content Row -->
+
+
+    </div>
+
+
+    <script>
+        $('.select2').select2();
+    </script>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

@@ -172,7 +172,13 @@
                             <i class="fas fa-circle" style="color: #1cc88a;"></i> Pending
                         </span>
                         <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #ff0000"></i> Rejected
+                            <i class="fas fa-circle" style="color: #ff0000"></i> Accepted
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle" style="color: #ff0000"></i> Closed
+                        </span>
+                        <span class="mr-2">
+                            <i class="fas fa-circle" style="color: #e5e5e5"></i> Terminated
                         </span>
 
                     </div>
@@ -193,19 +199,21 @@
                     <h6 class="m-0 font-weight-bold text-primary">Electricians Based on Performance (Top 5)</h6>
                 </div>
                 <div class="card-body">
-                    @foreach (var item in ViewBag.EmpPerfTop)
+                    @foreach (var item in ViewBag.TopEmpList)
                     {
-
+                        <h4 class="small font-weight-bold">
+                            @item.EmpName ( @item.EmpID ) <span class="float-right">Complete! @item.score</span>
+                        </h4>
+                        <div class="progress">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: @item.score%"
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     }
 
-                    <h4 class="small font-weight-bold">
-                        Thomas Shelby (51950426) <span class="float-right">Complete!</span>
-                    </h4>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 100%"
-                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">
+
+
+
+                    @*<h4 class="small font-weight-bold">
                         Sherlock Holmes (51950426) <span class="float-right">80%</span>
                     </h4>
                     <div class="progress mb-4">
@@ -233,8 +241,12 @@
                     <div class="progress mb-4">
                         <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+                    </div>*@
+
                     <hr />
+
+
+
                     <p>
                         This list will be changed frequently according to the performance ofElectricians on their assigned jobs.
                         The Electricians who stays up in the list will get more company benefits and promotions for their performance
@@ -329,7 +341,7 @@
                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: [0, 10, 50, 150, 100, 200, 250, 200, 250, 300, 350, 400],
+                data: @Html.Raw(Json.Serialize(ViewBag.JobMonthsData)),
             }],
         },
         options: {
@@ -418,9 +430,9 @@
     var myPieChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ["Completed", "Pending", "Rejected"],
+            labels: ["Completed", "Pending", "Accepted", "Closed", "Terminated"],
             datasets: [{
-                data: [60, 30, 10],
+                data: @Html.Raw(Json.Serialize(ViewBag.PieChart)),
                 backgroundColor: ['#9e60ff', '#1cc88a', '#ff0000'],
                 hoverBackgroundColor: ['#9e60ff', '#1cc88a', '#ff0000'],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",

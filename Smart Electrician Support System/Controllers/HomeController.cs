@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rotativa.AspNetCore;
 using SelectPdf;
 using Smart_Electrician_Support_System.Models;
 using Smart_Electrician_Support_System.Services;
@@ -31,11 +32,24 @@ namespace Smart_Electrician_Support_System.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.EmpPerfTop = _service.GetTopEmps();
+            //ViewBag.EmpPerfTop = _service.GetTopEmps();
+
+            var obj = _service.Get();
+            ViewBag.JobMonthsData = _service.GetJobsMonthData();
+            ViewBag.TopEmpList = _service.GetTopEmps();
+            ViewBag.PieChart = _service.GetJobStatus();
+
+            return View(obj);
+        }
+
+
+        public IActionResult PrintDash()
+        {
+            //ViewBag.EmpPerfTop = _service.GetTopEmps();
 
             var obj = _service.Get();
 
-            return View(obj);
+            return new ViewAsPdf(obj);
         }
 
         public IActionResult Privacy()
