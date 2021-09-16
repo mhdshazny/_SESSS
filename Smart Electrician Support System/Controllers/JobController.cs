@@ -48,6 +48,11 @@ namespace Smart_Electrician_Support_System.Controllers
             return View(GetList);
         }
 
+        public IActionResult Create()
+        {
+            return RedirectToAction("Index");
+        }
+
         // GET: Job/Details/5
         public IActionResult Details(string id)
         {
@@ -83,26 +88,25 @@ namespace Smart_Electrician_Support_System.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(JobViewModel collection)
+        public async Task<IActionResult> CreateAsync(JobViewModel collection)
         {
             try
             {
                 if (collection != null)
                 {
-                    bool AddData = await JobService.Add(collection);
+                    bool AddData = await JobService.AddAsync(collection);
 
                     if (AddData)
                     {
-                        return RedirectToAction(nameof(Index), "Job", "Data Successfully Added.");
+                        return RedirectToAction("Index", "Job", "Data Successfully Added.");
                     }
                     else
-                        return RedirectToAction(nameof(Index), collection);
+                        return RedirectToAction("Index", collection);
 
                 }
                 else
                 {
-                    return RedirectToAction(nameof(Index), collection);
+                    return RedirectToAction("Index", collection);
                 }
             }
             catch (Exception)
