@@ -11,18 +11,18 @@
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-primary">
+<body class="bg-gradient-light d-flex flex-column vh-100">
     <div class="container">
         <!-- Outer Row -->
-        <div class="row justify-content-center" >
+        <div class="row mt-5">
 
-            <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="col-12 mt-5">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
+                <div class="card o-hidden border-0 shadow-lg mt-5 mb-0">
+                    <div class="card-body p-1 bg-gradient-light">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6" >
+                            <div class="col-lg-6 ">
                                 <img src="~/img/LoginImg.png" class="rounded img-fluid mx-auto d-bloc" style="max-width: 110%; height: 98%; margin:1%;" alt="...">
                             </div>
                             <div class="col-lg-6">
@@ -30,7 +30,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome !</h1>
                                     </div>
-                                        @RenderBody()
+                                    @RenderBody()
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="#">Forgot Password?</a>
@@ -50,7 +50,11 @@
 
     </div>
 
-
+    <footer class="footer bg-dark py-1 mt-auto ">
+        <div class="container ml-0">
+            <span class="text-muted ">&copy Electricity Board 2021</span>
+        </div>
+    </footer>
 
 
     <!-- Bootstrap core JavaScript-->
