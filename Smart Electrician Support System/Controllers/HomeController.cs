@@ -21,6 +21,7 @@ namespace Smart_Electrician_Support_System.Controllers
         private DbConnectionClass _context;
         private IMapper _mapper;
         private DashboardService _service;
+        private EmployeeService _empService;
 
         public HomeController(ILogger<HomeController> logger,DbConnectionClass context, IMapper mapper)
         {
@@ -28,6 +29,7 @@ namespace Smart_Electrician_Support_System.Controllers
             _context = context;
             _mapper = mapper;
             _service = new DashboardService(context,mapper);
+            _empService = new EmployeeService(context,mapper);
         }
 
         public IActionResult Index()
@@ -42,6 +44,12 @@ namespace Smart_Electrician_Support_System.Controllers
             return View(obj);
         }
 
+        //public IActionResult EditProfile()
+        //{
+        //    var empid = HttpContext.Session.GetString("SessionEmpID");
+        //    var data = EmployeeService.Find(empid);
+        //    return View(data);
+        //}
 
         public IActionResult PrintDash()
         {

@@ -24,7 +24,26 @@ namespace Smart_Electrician_Support_System.Services
             var obj = _context.DashTargetData.Where(i => i.status == "Active").FirstOrDefault();
             var objVM = _mapper.Map<DashTargetViewModel>(obj);
 
+            objVM.AvgMonth = calcAvgMonth();
+            objVM.TargetAchieved = (float.Parse(objVM.AvgMonth.ToString()) / float.Parse(obj.monthTarget.ToString())) * 100;
+            objVM.PendingJobs = calcPendingJobs();
+
             return objVM;
+        }
+
+        private int calcPendingJobs()
+        {
+            var data = _context.JobData.Where(i => i.Job_Status == "Pending").Count();
+
+            return data;
+        }
+
+        private float calcAvgMonth()
+        {
+            var data = _context.JobData.Where(i => i.Job_Status == "Finished" || i.Job_Status == "Accepted" || i.Job_Status == "Pending").ToList();
+            float count = float.Parse(data.Count.ToString()) / 12f;
+
+            return count;
         }
 
         public bool Update(DashTargetViewModel obj)

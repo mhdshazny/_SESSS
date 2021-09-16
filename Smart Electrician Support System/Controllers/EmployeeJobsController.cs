@@ -61,6 +61,21 @@ namespace Smart_Electrician_Support_System.Controllers
                 return View("Index","Invalid Id");
         }
 
+        public IActionResult IndexCaller(string data)
+        {
+            List<EmployeeViewModel> empLi = empLiDDL(EmployeeService.GetListByType("Electrician"));
+            ViewData["EmpList"] = new SelectList(empLi, "EmpID", "lName");
+            if (data != null || data != "")
+            {
+                EmployeeJobsViewModel obj = _service.GetEmpPerf(data);
+                ViewBag.Graph = _service.GraphData(data);
+
+                return View("Index",obj);
+            }
+            else
+                return View("Index", "Invalid Id");
+        }
+
         [ActionName("EmpShow")]
         public IActionResult ShowEmpPerf(string id)
         {

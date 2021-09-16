@@ -30,6 +30,10 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DisplayName("Employee Role")]
         public string EmpRole { get; set; }
 
+        [NotMapped]
+        [DisplayName("Employee Name")]
+        public string EmpName { get; set; }
+
         [DisplayName("Employee Status")]
         public string EmpStatus { get; set; }
 

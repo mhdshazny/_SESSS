@@ -108,6 +108,7 @@ namespace Smart_Electrician_Support_System.Controllers
                 HttpContext.Session.SetString("SessionEmpEmail", data.EmpEmail);
                 HttpContext.Session.SetString("SessionEmpID", data.EmpID);
                 HttpContext.Session.SetString("SessionEmpRole", data.EmpRole);
+                HttpContext.Session.SetString("SessionEmpName", data.EmpName);
 
                 return true;
             }
@@ -124,6 +125,7 @@ namespace Smart_Electrician_Support_System.Controllers
             HttpContext.Session.SetString("SessionEmpEmail", "");
             HttpContext.Session.SetString("SessionEmpID", "");
             HttpContext.Session.SetString("SessionEmpRole", "");
+            HttpContext.Session.SetString("SessionEmpName", "");
         }
 
     }

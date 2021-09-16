@@ -45,8 +45,12 @@ namespace Smart_Electrician_Support_System.Services
                     var MapData = _mapper.Map<JobModel>(collection);
                     _context.Add(MapData);
                     _context.SaveChanges();
-                    updateStatus(MapData.Appo_ID);
-                    return true;
+                    bool appStatus =  updateStatus(MapData.Appo_ID);
+                    if (appStatus)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
                 else
                     return false;
@@ -58,13 +62,21 @@ namespace Smart_Electrician_Support_System.Services
             }
         }
 
-        private static void updateStatus(string id)
+        private static bool updateStatus(string id)
         {
-            AppointmentViewModel apptVM = AppointmentService.Find(id);
-            apptVM.Appo_Status = "Accepted";
-            var MapData = _mapper.Map<AppointmentModel>(apptVM);
-            _context.Update(MapData);
-            _context.SaveChangesAsync();
+            try
+            {
+                AppointmentModel apptObj = _context.AppointmentData.Where(i=>i.Appo_ID==id).FirstOrDefault();
+                apptObj.Appo_Status = "Accepted";
+                _context.Update(apptObj);
+                _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception err)
+            {
+                return false;
+            }
+
 
         }
 
