@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http;
 @inject IHttpContextAccessor HttpContextAccessor
+@if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") == "" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") == null)
+{
+    Context.Response.Redirect("/Identity/EmpLogin?Msg=SessionCleared?MsgType=error");
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +42,8 @@
 
 
 <body id="page-top">
+
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -149,7 +155,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                                    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != ""|| HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != null)
+                                    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != "" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != null)
                                     {
                                         @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail")
                                     }
@@ -158,14 +164,14 @@
                                         Context.Response.Redirect("/Identity/EmpLogin?Msg=SessionCleared?MsgType=error");
 
                                     }
-                                    </span>
+                                </span>
                                 <img class="img-profile rounded-circle"
                                      src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
+                                <a class="dropdown-item" asp-action="EmpProfile" asp-controller="Employee">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -219,133 +225,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Profile Modal-->
-    <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Employee ID</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" name="EmpID" />
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Employee Category</label>
-                        </div>
-                        <div class="col">
-                            <input name="EmpCat_ID" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">First Name</label>
-                        </div>
-                        <div class="col">
-                            <input name="fName" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Last Name</label>
-                        </div>
-                        <div class="col">
-                            <input name="lName" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Gender</label>
-                        </div>
-                        <div class="col">
-                            <input name="Gender" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Date of Birth</label>
-                        </div>
-                        <div class="col">
-                            <input name="DoB" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">NIC</label>
-                        </div>
-                        <div class="col">
-                            <input name="NIC" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label"></label>
-                        </div>
-                        <div class="col">
-                            <input name="Email" class="form-control" required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label"></label>
-                        </div>
-                        <div class="col">
-                            <input name="Address" class="form-control" required />
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Contact Number</label>
-                        </div>
-                        <div class="col">
-                            <input name="Contact" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label class="control-label">Status</label>
-                        </div>
-                        <div class="col">
-                            <input name="Status" class="form-control" />
-                        </div>
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-primary" />
-                            </div>
-                        </div>
-                        <div class="col">
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-
-
-                        
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    
+  
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -360,7 +240,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" asp-action="EmpLogin" asp-controller="Identity">Logout</a>
+                    <a class="btn btn-primary" asp-action="Logout" asp-controller="Identity">Logout</a>
                 </div>
             </div>
         </div>
@@ -373,6 +253,11 @@
     <!-- Custom scripts for all pages-->
     <script src="~/js/sb-admin-2.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $('#IndexTable2').DataTable();
+        });
+    </script>
 
     @RenderSection("Scripts", required: false)
     @section Scripts {
