@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -34,24 +35,45 @@ namespace Smart_Electrician_Support_System.Controllers
         // GET: Job
         public IActionResult Index()
         {
-            ViewData["NewID"] = JobService.NewID();
-            ViewData["AppList"] = new SelectList(AppointmentService.GetPendingList(),"Appo_ID", "Appo_Subject");
+            if (HttpContext.Session.GetString("SessionEmpRole") == "Electrician")
+            {
+                var id = HttpContext.Session.GetString("SessionEmpID");
+                var GetList = JobService.GetListForElectrician(id);
+                return View(GetList);
+            }
+            else
+            {
+                ViewData["NewID"] = JobService.NewID();
+                ViewData["AppList"] = new SelectList(AppointmentService.GetPendingList(), "Appo_ID", "Appo_Subject");
 
 
-            ViewData["EmpList"] = new SelectList(EmployeeService.GetListByType("Labour"), "EmpID","lName");
-            ViewData["ElecList"] = new SelectList(EmployeeService.GetListByType("Electrician"),"EmpID","lName");
-            ViewData["PrdList"] = new SelectList(ProductsService.GetList(),"PrID","PrName");
-            
-            
+                ViewData["EmpList"] = new SelectList(EmployeeService.GetListByType("Labour"), "EmpID", "lName");
+                ViewData["ElecList"] = new SelectList(EmployeeService.GetListByType("Electrician"), "EmpID", "lName");
+                ViewData["PrdList"] = new SelectList(ProductsService.GetList(), "PrID", "PrName");
 
-            var GetList = JobService.GetList();
-            return View(GetList);
+
+
+                var GetList = JobService.GetList();
+                return View(GetList);
+            }
         }
 
         public IActionResult Create()
         {
             return RedirectToAction("Index");
         }
+
+
+        //Electrician View
+        public IActionResult MyJobsElec()
+        {
+            return View();
+        }
+
+
+
+
+
 
         // GET: Job/Details/5
         public IActionResult Details(string id)

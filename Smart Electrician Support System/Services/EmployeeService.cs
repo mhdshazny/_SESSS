@@ -46,6 +46,23 @@ namespace Smart_Electrician_Support_System.Services
             return GetList;
         }
 
+        internal static bool ChangePass(string email, string oldPassw, string newPassw)
+        {
+            bool state = false;
+            var data = _context.EmpIdentityData.Where(i=>i.EmpEmail==email&&i.EmpPassWord==oldPassw).FirstOrDefault();
+
+            if (data!=null)
+            {
+                data.EmpPassWord = newPassw;
+                _context.Update(data);
+                _context.SaveChanges();
+                state = true;
+            }
+
+            return state;
+            
+        }
+
         public static string EmpCat(string id)
         {
             var CatName = _context.EmpCategoryData.Find(id);

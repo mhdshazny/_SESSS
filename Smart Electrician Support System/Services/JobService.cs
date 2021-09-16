@@ -62,6 +62,20 @@ namespace Smart_Electrician_Support_System.Services
             }
         }
 
+        internal static List<JobViewModel> GetListForElectrician(string id)
+        {
+            var DataList = _context.JobData.Where(i=>i.Emp_Electr_ID==id).ToList();
+            var GetList = new List<JobViewModel>();
+            foreach (var item in DataList)
+            {
+                var VM = _mapper.Map<JobViewModel>(item);
+                GetList.Add(VM);
+            }
+
+
+            return GetList;
+        }
+
         private static async Task<bool> updateStatusAsync(string id)
         {
             try

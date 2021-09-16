@@ -1,4 +1,7 @@
-﻿<!-- Sidebar -->
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<!-- Sidebar -->
+
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -24,166 +27,735 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
-    <div class="sidebar-heading">
-        Management Options
-    </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmp"
-           aria-expanded="true" aria-controls="collapseEmp">
-            <i class="fas fa-fw fa-id-badge"></i>
-            <span>Manage Employees</span>
-        </a>
-        <div id="collapseEmp" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Employee Components:</h6>
-                <a class="collapse-item" asp-action="Index" asp-controller="Employee">Manage Employees</a>
-                <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
-                <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
-
-                <h6 class="collapse-header">Employee Reports:</h6>
-                <a class="collapse-item" href="#">All Employee Report</a>
-                <a class="collapse-item" href="#">Custom Report</a>
-            </div>
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Admin")
+    {
+        <div class="sidebar-heading">
+            Management Options
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCus"
-           aria-expanded="true" aria-controls="collapseCus">
-            <i class="fas fa-user-check"></i>
-            <span>Manage Customers</span>
-        </a>
-        <div id="collapseCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Customer Components:</h6>
-                <a class="collapse-item" asp-controller="Customer" asp-action="Index">Manage Customer</a>
-                <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmp"
+               aria-expanded="true" aria-controls="collapseEmp">
+                <i class="fas fa-fw fa-id-badge"></i>
+                <span>Manage Employees</span>
+            </a>
+            <div id="collapseEmp" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Employee Components:</h6>
+                    <a class="collapse-item" asp-action="Index" asp-controller="Employee">Manage Employees</a>
+                    <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
+                    <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
 
-                <h6 class="collapse-header">Customer Reports:</h6>
-                <a class="collapse-item" href="buttons.html">All Customer Report</a>
-                <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" href="#">All Employee Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCus"
+               aria-expanded="true" aria-controls="collapseCus">
+                <i class="fas fa-user-check"></i>
+                <span>Manage Customers</span>
+            </a>
+            <div id="collapseCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Index">Manage Customer</a>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppt"
-           aria-expanded="true" aria-controls="collapseAppt">
-            <i class="fas fa-calendar-check"></i>
-            <span>Appointments</span>
-        </a>
-        <div id="collapseAppt" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Appointment Components:</h6>
-                <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
-                <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
-
-                <h6 class="collapse-header">Appointment Reports:</h6>
-                <a class="collapse-item" href="buttons.html">All Appointments Report</a>
-                <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <h6 class="collapse-header">Customer Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
             </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
-           aria-expanded="true" aria-controls="collapseJob">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Job</span>
-        </a>
-        <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Job Components:</h6>
-                <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
-                <a class="collapse-item">Create a Job</a>
+        </li>
 
-                <h6 class="collapse-header">Job Reports:</h6>
-                <a class="collapse-item" href="buttons.html">All Jobs Report</a>
-                <a class="collapse-item" href="cards.html">Custom Report</a>
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppt"
+               aria-expanded="true" aria-controls="collapseAppt">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+            <div id="collapseAppt" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Appointment Components:</h6>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+
+                    <h6 class="collapse-header">Appointment Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
             </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
-           aria-expanded="true" aria-controls="collapsePerf">
-            <i class="fas fa-chart-line"></i>
-            <span>Service Performance</span>
-        </a>
-        <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
-             data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Performance Components:</h6>
-                <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
-                <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+               aria-expanded="true" aria-controls="collapseJob">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Job</span>
+            </a>
+            <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Job Components:</h6>
+                    <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
+                    <a class="collapse-item">Create a Job</a>
 
-                <h6 class="collapse-header">Performance Reports:</h6>
-                <a class="collapse-item" href="buttons.html">All Performance Report</a>
-                <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <h6 class="collapse-header">Job Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
+               aria-expanded="true" aria-controls="collapsePerf">
+                <i class="fas fa-chart-line"></i>
+                <span>Service Performance</span>
+            </a>
+            <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Performance Components:</h6>
+                    <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
+                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Stocks And Reports
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
-           aria-expanded="true" aria-controls="collapseProd">
-            <i class="fas fa-cubes"></i>
-            <span>Products and Stocks</span>
-        </a>
-        <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Manage Products:</h6>
-                <a class="collapse-item" asp-controller="Products" asp-action="Index">Manage Stock</a>
-                <a class="collapse-item">Add Product</a>
-                <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
-                <a class="collapse-item">Add Used Product</a>
-
-
+                    <h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
-           aria-expanded="true" aria-controls="collapseReports">
-            <i class="fas fa-cubes"></i>
-            <span>Products Reports</span>
-        </a>
-        <div id="collapseReports" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Stock Reports:</h6>
-                <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
-                <a class="collapse-item" href="#">Custom Report</a>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Stocks And Reports
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
+               aria-expanded="true" aria-controls="collapseProd">
+                <i class="fas fa-cubes"></i>
+                <span>Products and Stocks</span>
+            </a>
+            <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Manage Products:</h6>
+                    <a class="collapse-item" asp-controller="Products" asp-action="Index">Manage Stock</a>
+                    <a class="collapse-item">Add Product</a>
+                    <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
+                    <a class="collapse-item">Add Used Product</a>
+
+
+                </div>
             </div>
-        </div>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Set Dashboard Targets
-    </div>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
-            <i class="fas fa-wrench"></i>
-            <span>Manage Dashboard</span>
-        </a>
-    </li>
-    <!-- Nav Item - Charts -->
-    <!-- Nav Item - Tables -->
-    <!-- Divider -->
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+               aria-expanded="true" aria-controls="collapseReports">
+                <i class="fas fa-cubes"></i>
+                <span>Products Reports</span>
+            </a>
+            <div id="collapseReports" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Stock Reports:</h6>
+                    <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Set Dashboard Targets
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
+                <i class="fas fa-wrench"></i>
+                <span>Manage Dashboard</span>
+            </a>
+        </li>
+        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Tables -->
+        <!-- Divider -->
+    }
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Manager")
+    {
+        <div class="sidebar-heading">
+            Management Options
+        </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmp"
+               aria-expanded="true" aria-controls="collapseEmp">
+                <i class="fas fa-fw fa-id-badge"></i>
+                <span>Manage Employees</span>
+            </a>
+            <div id="collapseEmp" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Employee Components:</h6>
+                    <a class="collapse-item" asp-action="Index" asp-controller="Employee">Manage Employees</a>
+                    <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
+                    <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
+
+                    <h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" href="#">All Employee Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCus"
+               aria-expanded="true" aria-controls="collapseCus">
+                <i class="fas fa-user-check"></i>
+                <span>Manage Customers</span>
+            </a>
+            <div id="collapseCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Index">Manage Customer</a>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
+
+                    <h6 class="collapse-header">Customer Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppt"
+               aria-expanded="true" aria-controls="collapseAppt">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+            <div id="collapseAppt" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Appointment Components:</h6>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+
+                    <h6 class="collapse-header">Appointment Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+               aria-expanded="true" aria-controls="collapseJob">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Job</span>
+            </a>
+            <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Job Components:</h6>
+                    <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
+                    <a class="collapse-item">Create a Job</a>
+
+                    <h6 class="collapse-header">Job Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
+               aria-expanded="true" aria-controls="collapsePerf">
+                <i class="fas fa-chart-line"></i>
+                <span>Service Performance</span>
+            </a>
+            <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Performance Components:</h6>
+                    <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
+                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+
+                    <h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Stocks And Reports
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
+               aria-expanded="true" aria-controls="collapseProd">
+                <i class="fas fa-cubes"></i>
+                <span>Products and Stocks</span>
+            </a>
+            <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Manage Products:</h6>
+                    <a class="collapse-item" asp-controller="Products" asp-action="Index">Manage Stock</a>
+                    <a class="collapse-item">Add Product</a>
+                    <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
+                    <a class="collapse-item">Add Used Product</a>
+
+
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+               aria-expanded="true" aria-controls="collapseReports">
+                <i class="fas fa-cubes"></i>
+                <span>Products Reports</span>
+            </a>
+            <div id="collapseReports" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Stock Reports:</h6>
+                    <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Set Dashboard Targets
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
+                <i class="fas fa-wrench"></i>
+                <span>Manage Dashboard</span>
+            </a>
+        </li>
+        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Tables -->
+        <!-- Divider -->
+    }
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "HR")
+    {
+        <div class="sidebar-heading">
+            Management Options
+        </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmp"
+               aria-expanded="true" aria-controls="collapseEmp">
+                <i class="fas fa-fw fa-id-badge"></i>
+                <span>Manage Employees</span>
+            </a>
+            <div id="collapseEmp" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Employee Components:</h6>
+                    <a class="collapse-item" asp-action="Index" asp-controller="Employee">Manage Employees</a>
+                    <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
+                    <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
+
+                    <h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" href="#">All Employee Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCus"
+               aria-expanded="true" aria-controls="collapseCus">
+                <i class="fas fa-user-check"></i>
+                <span>Manage Customers</span>
+            </a>
+            <div id="collapseCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Index">Manage Customer</a>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
+
+                    <h6 class="collapse-header">Customer Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppt"
+               aria-expanded="true" aria-controls="collapseAppt">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+            <div id="collapseAppt" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Appointment Components:</h6>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+
+                    <h6 class="collapse-header">Appointment Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+               aria-expanded="true" aria-controls="collapseJob">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Job</span>
+            </a>
+            <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Job Components:</h6>
+                    <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
+                    <a class="collapse-item">Create a Job</a>
+
+                    <h6 class="collapse-header">Job Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
+               aria-expanded="true" aria-controls="collapsePerf">
+                <i class="fas fa-chart-line"></i>
+                <span>Service Performance</span>
+            </a>
+            <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Performance Components:</h6>
+                    <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
+                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+
+                    <h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Stocks And Reports
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
+               aria-expanded="true" aria-controls="collapseProd">
+                <i class="fas fa-cubes"></i>
+                <span>Products and Stocks</span>
+            </a>
+            <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Manage Products:</h6>
+                    <a class="collapse-item" asp-controller="Products" asp-action="Index">Manage Stock</a>
+                    <a class="collapse-item">Add Product</a>
+                    <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
+                    <a class="collapse-item">Add Used Product</a>
+
+
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+               aria-expanded="true" aria-controls="collapseReports">
+                <i class="fas fa-cubes"></i>
+                <span>Products Reports</span>
+            </a>
+            <div id="collapseReports" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Stock Reports:</h6>
+                    <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Set Dashboard Targets
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
+                <i class="fas fa-wrench"></i>
+                <span>Manage Dashboard</span>
+            </a>
+        </li>
+        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Tables -->
+        <!-- Divider -->
+    }
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Labour")
+    {
+        <div class="sidebar-heading">
+            Management Options
+        </div>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmp"
+               aria-expanded="true" aria-controls="collapseEmp">
+                <i class="fas fa-fw fa-id-badge"></i>
+                <span>Manage Employees</span>
+            </a>
+            <div id="collapseEmp" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Employee Components:</h6>
+                    <a class="collapse-item" asp-action="Index" asp-controller="Employee">Manage Employees</a>
+                    <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
+                    <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
+
+                    <h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" href="#">All Employee Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCus"
+               aria-expanded="true" aria-controls="collapseCus">
+                <i class="fas fa-user-check"></i>
+                <span>Manage Customers</span>
+            </a>
+            <div id="collapseCus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Customer Components:</h6>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Index">Manage Customer</a>
+                    <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
+
+                    <h6 class="collapse-header">Customer Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppt"
+               aria-expanded="true" aria-controls="collapseAppt">
+                <i class="fas fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+            <div id="collapseAppt" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Appointment Components:</h6>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
+                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+
+                    <h6 class="collapse-header">Appointment Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+               aria-expanded="true" aria-controls="collapseJob">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>Job</span>
+            </a>
+            <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Job Components:</h6>
+                    <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage Jobs</a>
+                    <a class="collapse-item">Create a Job</a>
+
+                    <h6 class="collapse-header">Job Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
+               aria-expanded="true" aria-controls="collapsePerf">
+                <i class="fas fa-chart-line"></i>
+                <span>Service Performance</span>
+            </a>
+            <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Performance Components:</h6>
+                    <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
+                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+
+                    <h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
+                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Stocks And Reports
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
+               aria-expanded="true" aria-controls="collapseProd">
+                <i class="fas fa-cubes"></i>
+                <span>Products and Stocks</span>
+            </a>
+            <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Manage Products:</h6>
+                    <a class="collapse-item" asp-controller="Products" asp-action="Index">Manage Stock</a>
+                    <a class="collapse-item">Add Product</a>
+                    <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Manage Used Products</a>
+                    <a class="collapse-item">Add Used Product</a>
+
+
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+               aria-expanded="true" aria-controls="collapseReports">
+                <i class="fas fa-cubes"></i>
+                <span>Products Reports</span>
+            </a>
+            <div id="collapseReports" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Stock Reports:</h6>
+                    <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
+                    <a class="collapse-item" href="#">Custom Report</a>
+                </div>
+            </div>
+        </li>
+        <hr class="sidebar-divider d-none d-md-block">
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Set Dashboard Targets
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="DashConfig">
+                <i class="fas fa-wrench"></i>
+                <span>Manage Dashboard</span>
+            </a>
+        </li>
+        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Tables -->
+        <!-- Divider -->
+    }
+
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Electrician")
+    {
+        <div class="sidebar-heading">
+            Management Options
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJob"
+               aria-expanded="true" aria-controls="collapseJob">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span>My Job</span>
+            </a>
+            <div id="collapseJob" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Job Components:</h6>
+                    <a class="collapse-item" asp-controller="Job" asp-action="MyJobsElec">Manage My Jobs</a>
+
+                    <h6 class="collapse-header">Job Reports:</h6>
+                    <a class="collapse-item" href="#">All My Jobs Report</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePerf"
+               aria-expanded="true" aria-controls="collapsePerf">
+                <i class="fas fa-chart-line"></i>
+                <span>Service Performance</span>
+            </a>
+            <div id="collapsePerf" class="collapse" aria-labelledby="headingUtilities"
+                 data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Performance Components:</h6>
+                    <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">My Jobs & Performance</a>
+                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service Report</a>
+
+                    <h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">My Performance Report</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Stocks And Reports
+        </div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProd"
+               aria-expanded="true" aria-controls="collapseProd">
+                <i class="fas fa-cubes"></i>
+                <span>Products and Stocks</span>
+            </a>
+            <div id="collapseProd" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Check Products:</h6>
+                    <a class="collapse-item" asp-controller="Products" asp-action="Index">Check Stock</a>
+                    <a class="collapse-item" asp-controller="UsedProducts" asp-action="Index">Check Used Products</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        
+
+        <!-- Nav Item - Charts -->
+        <!-- Nav Item - Tables -->
+        <!-- Divider -->
+    }
+
+    
     <hr class="sidebar-divider d-none d-md-block">
     <!-- Heading -->
     <div class="sidebar-heading">
@@ -213,4 +785,6 @@
     </div>-->
 
 </ul>
+
+
 <!-- End of Sidebar -->

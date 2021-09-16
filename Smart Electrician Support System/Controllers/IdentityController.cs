@@ -38,7 +38,7 @@ namespace Smart_Electrician_Support_System.Controllers
             {
                 if (data != null)
                 {
-                    if (_identityService.SignUp(data)==true)
+                    if (_identityService.SignUp(data) == true)
                         return RedirectToAction("EmpLogin", "Identity", "LoginSuccess");
                     else
                         return RedirectToAction("EmpLogin", "Identity", "LoginFailed");
@@ -52,6 +52,14 @@ namespace Smart_Electrician_Support_System.Controllers
             }
 
         }
+
+        public IActionResult Logout()
+        {
+            clearSession();
+            return RedirectToAction("EmpLogin", "Identity", "SessionCleared");
+        }
+
+
         [HttpPost]
         public IActionResult Login(string EmpEmail, string EmpPassWord)
         {

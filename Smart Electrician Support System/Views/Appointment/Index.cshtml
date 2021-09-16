@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.AppointmentViewModel>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+@model IEnumerable<Smart_Electrician_Support_System.ViewModels.AppointmentViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -63,9 +66,12 @@
                                     @Html.DisplayFor(modelItem => item.Appo_Status)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Appo_ID"><i class="fas fa-edit"></i></a> |
-                                    <a asp-action="Details" asp-route-id="@item.Appo_ID"><i class="fas fa-info-circle"></i></a> |
-                                    <a onclick="ConfirmDelete('@item.Appo_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.Appo_ID"><i class="fas fc-allow-mouse-resize fa-edit"></i></a> |
+                                    <a asp-action="Details" asp-route-id="@item.Appo_ID" class="btn btn-circle btn-md"><i class="fas fa-info-circle"></i></a>|
+
+                                    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") =="Admin"){
+                                            <a onclick="ConfirmDelete('@item.Appo_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                    }
                                 </td>
                             </tr>
                         }

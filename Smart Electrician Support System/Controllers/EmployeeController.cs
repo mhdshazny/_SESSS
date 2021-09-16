@@ -33,6 +33,29 @@ namespace Smart_Electrician_Support_System.Controllers
             return View(GetList);
         }
 
+        public IActionResult EmpProfile()
+        {
+            var id = HttpContext.Session.GetString("SessionEmpID");
+            var data = EmployeeService.Find(id);
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult ChangePass(string Email, string OldPassw, string NewPassw)
+        {
+            bool data = EmployeeService.ChangePass(Email,OldPassw,NewPassw);
+            if (data==true)
+            {
+            return RedirectToAction("EmpProfile","Employee","Successfully Changed");
+
+            }
+            else
+            {
+            return RedirectToAction("EmpProfile","Employee","Password Change Failed");
+
+            }
+        }
+
         // GET: EmployeeController/Details/5
         public ActionResult Details(string id)
         {
