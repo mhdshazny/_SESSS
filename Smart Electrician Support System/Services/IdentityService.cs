@@ -78,6 +78,7 @@ namespace Smart_Electrician_Support_System.Services
             var EmpRole = _context.EmpCategoryData.Where(x => x.EmpCat_ID == EmpData.EmpCat_ID).FirstOrDefault();
             var VMData = _mapper.Map<EmpIdentityViewModel>(data);
             VMData.EmpRole = EmpRole.EmpCat_Type;
+            VMData.EmpName = EmpData.fName+" "+EmpData.lName;
             return VMData;
 
         }

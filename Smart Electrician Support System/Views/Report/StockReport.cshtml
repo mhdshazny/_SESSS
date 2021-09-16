@@ -15,13 +15,13 @@
 </head>
 <body>
     <div class="jumbotron-fluid" style="text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:larger">
-        <h1 class="text-center">Class Report</h1>
+        <h1 class="text-center">Product Report</h1>
         <h4 class="text-center">All products details from the beginning</h4>
         <h5 class="text-center">Smart Electrician System </h5>
         <h6 class="text-center" id="para1"></h6>
     </div>
     <br />
-    <h4 style="font-weight:bold; margin-bottom:2%;">Class Statistics</h4>
+    <h4 style="font-weight:bold; margin-bottom:2%;">Product Statistics</h4>
     <div>
         <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
         <h5>Total Number of Products = <em style="color:crimson; font-style: normal;"> @Model.Count() </em></h5>
@@ -31,7 +31,7 @@
         <h5>Total Number of Unvailable Products = <em style="color:crimson; font-style: normal;"> @Model.Where(m => m.PrStatus == "Out of Stock").Count() </em></h5>
         <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
     </div>
-    <h4 style="font-weight:bold;margin-top:5%; margin-bottom:2%; ">All Class Records</h4>
+    <h4 style="font-weight:bold;margin-top:5%; margin-bottom:2%; ">All Product Records</h4>
 
     <table class="table">
         <thead>
