@@ -1,0 +1,92 @@
+﻿@model IEnumerable< Smart_Electrician_Support_System.ViewModels.AppointmentViewModel>
+@{
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Appointment Report</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron-fluid" style="text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:larger">
+        <h1 class="text-center">Appointment Report</h1>
+        <h4 class="text-center">All Appointment details from the beginning</h4>
+        <h5 class="text-center">Smart Electrician System </h5>
+        <h6 class="text-center" id="para1"></h6>
+    </div>
+    <br />
+    <h4 style="font-weight:bold; margin-bottom:2%;">Appointment Statistics</h4>
+    <div>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Appointments = <em style="color:crimson; font-style: normal;"> @Model.Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Completed Appointments = <em style="color:crimson; font-style: normal;"> @Model.Where(m => m.Appo_Status == "Finished").Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Pending Appointments = <em style="color:crimson; font-style: normal;"> @Model.Where(i => i.Appo_Status == "Pending").Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+    </div>
+    <h4 style="font-weight:bold;margin-top:5%; margin-bottom:2%; ">All Appointment Records</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cus_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appo_Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appo_Time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CusProperty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appo_Descr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appo_HandledBy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Appo_Status)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cus_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appo_Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appo_Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CusProperty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appo_Descr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appo_HandledBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Appo_Status)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

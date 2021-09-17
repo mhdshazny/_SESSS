@@ -84,7 +84,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Appointment Components:</h6>
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
-                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+                    @*<a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>*@
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
                     <a class="collapse-item" asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
@@ -241,7 +241,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Appointment Components:</h6>
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
-                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+                    @*<a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>*@
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
                     <a class="collapse-item" asp-action="AllAApptReport" asp-controller="Report">All Appointments Report</a>
@@ -398,7 +398,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Appointment Components:</h6>
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
-                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+                    @*<a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>*@
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
                     <a class="collapse-item"  asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
@@ -555,7 +555,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Appointment Components:</h6>
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Manage Appointments</a>
-                    <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
+                    @*<a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>*@
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
                     <a class="collapse-item" asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
@@ -678,7 +678,7 @@
                     <a class="collapse-item" asp-controller="Job" asp-action="Index">Manage My Jobs</a>
 
                     <h6 class="collapse-header">Job Reports:</h6>
-                    <a class="collapse-item" href="#">All My Jobs Report</a>
+                    <a class="collapse-item" asp-action="AllElectJobsReport" asp-controller="Report" asp-route-id="@HttpContextAccessor.HttpContext.Session.GetString("SessionEmpID")">All My Jobs Report</a>
                 </div>
             </div>
         </li>
@@ -695,8 +695,8 @@
                     <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">My Jobs & Performance</a>
                     <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service Report</a>
 
-                    <h6 class="collapse-header">Performance Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">My Performance Report</a>
+                    @*<h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">My Performance Report</a>*@
                 </div>
             </div>
         </li>

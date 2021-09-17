@@ -68,10 +68,10 @@ namespace Smart_Electrician_Support_System
 
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
-                DefaultRequestCulture = new RequestCulture("si-LK"),
+                DefaultRequestCulture = new RequestCulture("en-LK"),
                 SupportedCultures = supCultures,
                 SupportedUICultures = supCultures,
-                
+
             });
             app.UseSession();
             app.UseHttpsRedirection();

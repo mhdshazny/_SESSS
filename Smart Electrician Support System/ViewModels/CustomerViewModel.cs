@@ -39,6 +39,9 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Please provide a valid Customer Password.")]
         public string CusPassw { get; set; }
+        [DisplayName("Customer Company Name")]
+        [Required(ErrorMessage = "Please provide a valid Customer Company Name.")]
+        public string CusProperty { get; set; }
         [DisplayName("Customer Status")]
         [Required(ErrorMessage = "Please provide a valid Customer Status.")]
         public string CusStatus { get; set; }

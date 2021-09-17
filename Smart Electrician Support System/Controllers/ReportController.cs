@@ -55,5 +55,15 @@ namespace Smart_Electrician_Support_System.Controllers
             var data = CustomerService.GetList();
             return new ViewAsPdf(data);
         }
+        public IActionResult AllApptReport()
+        {
+            var data = AppointmentService.GetList();
+            return new ViewAsPdf(data);
+        }
+        public IActionResult AllElectJobsReport(string id)
+        {
+            var data = JobService.GetListForElectrician(id);
+            return new ViewAsPdf("AllJobsReport", data);
+        }
     }
 }

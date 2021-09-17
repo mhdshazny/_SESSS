@@ -64,7 +64,7 @@
 
                     <!-- Topbar Search -->
                     <form class="col">
-                        <h3>@DateTime.Now.ToString("yyyy/MMMM/dd/dddd")</h3>
+                        <h3>@DateTime.Now.ToString("yyyy-MMMM-dd   : dddd")</h3>
                     </form>
 
                     <!-- Topbar Navbar -->
@@ -105,7 +105,10 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-800 medium">
                                     @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != "" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") != null)
                                     {
-                                        @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail")
+                                    <p>
+                                        @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpEmail") (
+                                        @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") )
+                                    </p>
                                     }
                                     else
                                     {

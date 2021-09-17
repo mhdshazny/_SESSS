@@ -203,8 +203,8 @@
                                             }
                                             else
                                             {
-                                                <a asp-action="Edit" asp-route-id="@item.Job_ID"><i class="fas fa-edit"></i></a>
-                                                <a asp-action="Details" asp-route-id="@item.Job_ID"><i class="fas fa-info-circle"></i></a>
+                                                <a asp-action="Edit" asp-route-id="@item.Job_ID" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a asp-action="Details" asp-route-id="@item.Job_ID" class="btn btn-secondary btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>
                                                 <a onclick="ConfirmDelete('@item.Job_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
                                             }
                                         </td>
@@ -227,9 +227,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Job_ID)
                                 </th>
-                                <th>
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.Site_Inspected_By)
-                                </th>
+                                </th>*@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Site_Inspected_Date)
                                 </th>
@@ -244,9 +244,6 @@
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Job_Subject)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Job_Descr)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.JobEnd_TimeExpected)
@@ -264,9 +261,9 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Job_ID)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.Site_Inspected_By)
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Site_Inspected_Date)
                                     </td>
@@ -283,9 +280,6 @@
                                         @Html.DisplayFor(modelItem => item.Job_Subject)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Job_Descr)
-                                    </td>
-                                    <td>
                                         @Html.DisplayFor(modelItem => item.JobEnd_TimeExpected)
 
                                     </td>
@@ -293,9 +287,11 @@
                                         @Html.DisplayFor(modelItem => item.Job_Status)
                                     </td>
                                     <td>
-                                            <a asp-action="Edit" asp-route-id="@item.Job_ID"><i class="fas fa-edit"></i></a>
-                                            <a asp-action="Details" asp-route-id="@item.Job_ID"><i class="fas fa-info-circle"></i></a>
+                                        <div class="row">
+                                            <a asp-action="Edit" asp-route-id="@item.Job_ID" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                            <a asp-action="Details" asp-route-id="@item.Job_ID" class="btn btn-secondary btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>
                                             <a onclick="ConfirmDelete('@item.Job_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                        </div>
                                     </td>
                                 </tr>
                             }

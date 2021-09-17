@@ -25,9 +25,6 @@
                         <a href="#" name="Invoice" class="btn btn-block btn-primary disabled">Job Not Completed <br /> <i class="fas fa-folder-open"></i> </a>
                     }
                 </div>
-                <div class="col">
-                    <a name="JobReport" class="btn btn-block btn-success">Generate Job Report <br /> <i class="fas fa-folder-open"></i></a>
-                </div>
             </div>
         </div>
     </div>
@@ -138,7 +135,15 @@
                                     Required Components
                                 </dt>
                                 <dd class="col">
-                                    <a asp-action="Index" asp-controller="UsedProducts"> Add More Products</a>
+                                    @if (Model.Job_Status == "Finished" || Model.Job_Status == "Closed" || Model.Job_Status == "Terminated")
+                                    {
+                                        <a href="#" class="disabled"> Job Finished/Closed</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Index" asp-controller="UsedProducts"> Add More Products</a>
+                                    }
                                 </dd>
                             </dl>
                         </div>
