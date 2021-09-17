@@ -35,7 +35,9 @@ namespace Smart_Electrician_Support_System.Controllers
 
             if (HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContext.Session.GetString("SessionEmpRole") == "Manager")
             {
-                ViewData["JobList"] = new SelectList(JobService.GetList(), "Job_ID", "Job_Subject");
+                //var data = JobService.GetListForDD();
+                
+                ViewData["JobList"] = new SelectList(JobService.GetListForDD(), "Job_ID", "Job_Subject");
                 var GetList = UsedProductsService.GetList();
                 return View(GetList);
 

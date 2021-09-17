@@ -132,7 +132,7 @@ namespace Smart_Electrician_Support_System.Services
         internal static string NewID()
         {
             var Id = _context.UsedProductsData
-                .Max(i => i.PrID);
+                .Max(i => i.Pr_Used_ID);
             string NewID = "UPD0000001";
             int num;
             if (Id != null)

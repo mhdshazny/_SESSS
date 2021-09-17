@@ -52,10 +52,10 @@ namespace Smart_Electrician_Support_System.Services
                 obj.EmpID = emp.EmpID;
                 obj.Name = emp.fName + " " + emp.lName;
                 obj.JobCount = jobs.Count;
-                obj.JobsDoneCount = jobs.Where(i => i.Job_Status == "Completed").Count();
+                obj.JobsDoneCount = jobs.Where(i => i.Job_Status == "Finished").Count();
                 obj.JobsCancelledCount = jobs.Where(i => i.Job_Status == "Cancelled").Count();
                 obj.JobsDOTCount = jobs.Where(i => i.Job_Status == "Completed_DOT").Count();
-                obj.JobsPendingCount = jobs.Where(i => i.Job_Status == "Pending").Count();
+                obj.JobsPendingCount = jobs.Where(i => i.Job_Status == "Accepted").Count();
 
                 if (obj.JobCount == obj.JobsDOTCount)
                 {

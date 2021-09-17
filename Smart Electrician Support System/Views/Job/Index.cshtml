@@ -10,7 +10,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h1>Manage My Jobs</h1>
+        <h1>Manage Jobs</h1>
     </div>
     <div class="card-body">
         <div class="row">
@@ -29,7 +29,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Appo_ID)
+                                    @Html.DisplayNameFor(model => model.Job_ID)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Site_Inspected_By)
@@ -68,7 +68,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Appo_ID)
+                                            @Html.DisplayFor(modelItem => item.Job_ID)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Site_Inspected_By)
@@ -126,7 +126,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Appo_ID)
+                                    @Html.DisplayNameFor(model => model.Job_ID)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Site_Inspected_By)
@@ -165,7 +165,7 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Appo_ID)
+                                            @Html.DisplayFor(modelItem => item.Job_ID)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Site_Inspected_By)
@@ -225,7 +225,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Appo_ID)
+                                    @Html.DisplayNameFor(model => model.Job_ID)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Site_Inspected_By)
@@ -262,7 +262,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Appo_ID)
+                                        @Html.DisplayFor(modelItem => item.Job_ID)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Site_Inspected_By)
@@ -293,17 +293,9 @@
                                         @Html.DisplayFor(modelItem => item.Job_Status)
                                     </td>
                                     <td>
-
-                                        @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Electrician")
-                                        {
-                                            <a asp-action="Details" asp-route-id="@item.Job_ID" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-check"></i></a>
-                                        }
-                                        else
-                                        {
                                             <a asp-action="Edit" asp-route-id="@item.Job_ID"><i class="fas fa-edit"></i></a>
                                             <a asp-action="Details" asp-route-id="@item.Job_ID"><i class="fas fa-info-circle"></i></a>
                                             <a onclick="ConfirmDelete('@item.Job_ID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
-                                        }
                                     </td>
                                 </tr>
                             }

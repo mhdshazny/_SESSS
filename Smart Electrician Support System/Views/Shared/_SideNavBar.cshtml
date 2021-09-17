@@ -49,9 +49,8 @@
                     <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
                     <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
 
-                    <h6 class="collapse-header">Employee Reports:</h6>
-                    <a class="collapse-item" href="#">All Employee Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
+                    @*<h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" asp-action="AllEmpReport" asp-controller="Report">All Employee Report</a>*@
                 </div>
             </div>
         </li>
@@ -68,8 +67,7 @@
                     <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
 
                     <h6 class="collapse-header">Customer Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllCusReport" asp-controller="Report">All Customer Report</a>
                 </div>
             </div>
         </li>
@@ -89,8 +87,7 @@
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
                 </div>
             </div>
         </li>
@@ -108,8 +105,7 @@
                     <a class="collapse-item">Create a Job</a>
 
                     <h6 class="collapse-header">Job Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllJobsReport" asp-controller="Report">All Jobs Report</a>
                 </div>
             </div>
         </li>
@@ -124,11 +120,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Performance Components:</h6>
                     <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
-                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+                    @*<a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>*@
 
-                    <h6 class="collapse-header">Performance Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    @*<h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" asp-action="AllPerfReport" asp-controller="Report">All Performance Report</a>*@
                 </div>
             </div>
         </li>
@@ -172,7 +167,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Stock Reports:</h6>
                     <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
                 </div>
             </div>
         </li>
@@ -212,9 +206,8 @@
                     <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
                     <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
 
-                    <h6 class="collapse-header">Employee Reports:</h6>
-                    <a class="collapse-item" href="#">All Employee Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
+                    @*<h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" asp-action="AllEmpReport" asp-controller="Report">All Employee Report</a>*@
                 </div>
             </div>
         </li>
@@ -231,8 +224,7 @@
                     <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
 
                     <h6 class="collapse-header">Customer Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllCusReport" asp-controller="Report">All Customer Report</a>
                 </div>
             </div>
         </li>
@@ -252,8 +244,7 @@
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllAApptReport" asp-controller="Report">All Appointments Report</a>
                 </div>
             </div>
         </li>
@@ -271,8 +262,7 @@
                     <a class="collapse-item">Create a Job</a>
 
                     <h6 class="collapse-header">Job Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllJobsReport" asp-controller="Report">All Jobs Report</a>
                 </div>
             </div>
         </li>
@@ -287,11 +277,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Performance Components:</h6>
                     <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
-                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+                    @*<a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>*@
 
-                    <h6 class="collapse-header">Performance Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    @*<h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item" href="buttons.html">All Performance Report</a>*@
                 </div>
             </div>
         </li>
@@ -335,7 +324,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Stock Reports:</h6>
                     <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
                 </div>
             </div>
         </li>
@@ -375,9 +363,8 @@
                     <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
                     <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
 
-                    <h6 class="collapse-header">Employee Reports:</h6>
-                    <a class="collapse-item" href="#">All Employee Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
+                    @*<h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item" href="#">All Employee Report</a>*@
                 </div>
             </div>
         </li>
@@ -395,7 +382,6 @@
 
                     <h6 class="collapse-header">Customer Reports:</h6>
                     <a class="collapse-item" href="buttons.html">All Customer Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
                 </div>
             </div>
         </li>
@@ -415,8 +401,7 @@
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item"  asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
                 </div>
             </div>
         </li>
@@ -434,8 +419,7 @@
                     <a class="collapse-item">Create a Job</a>
 
                     <h6 class="collapse-header">Job Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllJobsReport" asp-controller="Report">All Jobs Report</a>
                 </div>
             </div>
         </li>
@@ -450,11 +434,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Performance Components:</h6>
                     <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
-                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+                    @*<a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>*@
 
-                    <h6 class="collapse-header">Performance Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    @*<h6 class="collapse-header">Performance Reports:</h6>
+                    <a class="collapse-item"  asp-action="AllPerfReport" asp-controller="Report">All Performance Report</a>*@
                 </div>
             </div>
         </li>
@@ -498,7 +481,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Stock Reports:</h6>
                     <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
                 </div>
             </div>
         </li>
@@ -538,9 +520,8 @@
                     <a class="collapse-item" asp-controller="Employee" asp-action="Create">Create Employee Profile</a>
                     <a class="collapse-item" asp-action="Index" asp-controller="EmpCategory">Employee Categories</a>
 
-                    <h6 class="collapse-header">Employee Reports:</h6>
-                    <a class="collapse-item" href="#">All Employee Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
+                    @*<h6 class="collapse-header">Employee Reports:</h6>
+                    <a class="collapse-item"  asp-action="AllEmpReport" asp-controller="Report">All Employee Report</a>*@
                 </div>
             </div>
         </li>
@@ -557,8 +538,7 @@
                     <a class="collapse-item" asp-controller="Customer" asp-action="Create">Create Customer</a>
 
                     <h6 class="collapse-header">Customer Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Customer Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllCusReport" asp-controller="Report">All Customer Report</a>
                 </div>
             </div>
         </li>
@@ -578,8 +558,7 @@
                     <a class="collapse-item" asp-controller="Appointment" asp-action="Create">Create Appointments</a>
 
                     <h6 class="collapse-header">Appointment Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Appointments Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllApptReport" asp-controller="Report">All Appointments Report</a>
                 </div>
             </div>
         </li>
@@ -597,8 +576,7 @@
                     <a class="collapse-item">Create a Job</a>
 
                     <h6 class="collapse-header">Job Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Jobs Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllJobsReport" asp-controller="Report">All Jobs Report</a>
                 </div>
             </div>
         </li>
@@ -613,11 +591,10 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Performance Components:</h6>
                     <a class="collapse-item" asp-controller="EmployeeJobs" asp-action="Index">Employee_Jobs</a>
-                    <a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
+                    @*<a class="collapse-item" asp-controller="JobPerformance" asp-action="Index">Jobs and Service</a>
 
                     <h6 class="collapse-header">Performance Reports:</h6>
-                    <a class="collapse-item" href="buttons.html">All Performance Report</a>
-                    <a class="collapse-item" href="cards.html">Custom Report</a>
+                    <a class="collapse-item" asp-action="AllPerfReport" asp-controller="Report">All Performance Report</a>*@
                 </div>
             </div>
         </li>
@@ -661,7 +638,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Stock Reports:</h6>
                     <a class="collapse-item" asp-action="StockReport" asp-controller="Report" target="_blank">All Stock Report</a>
-                    <a class="collapse-item" href="#">Custom Report</a>
                 </div>
             </div>
         </li>
