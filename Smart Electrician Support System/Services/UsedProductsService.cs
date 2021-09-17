@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Smart_Electrician_Support_System.Models;
 using Smart_Electrician_Support_System.ViewModels;
 using System;
@@ -23,11 +24,16 @@ namespace Smart_Electrician_Support_System.Services
 
         public static List<UsedProductsViewModel> GetList()
         {
+
             var DataList = _context.UsedProductsData.ToList();
             var GetList = new List<UsedProductsViewModel>();
             foreach (var item in DataList)
             {
+                var ProductData = _context.ProductsData.Where(i => i.PrID == item.PrID).FirstOrDefault();
+
                 var VM = _mapper.Map<UsedProductsViewModel>(item);
+                VM.PrName = ProductData.PrName;
+                VM.TotCost = "Rs." + (ProductData.PrPrice * item.PrQty).ToString("0.00");
                 GetList.Add(VM);
             }
             return GetList;
@@ -80,13 +86,44 @@ namespace Smart_Electrician_Support_System.Services
             }
         }
 
+        internal static List<UsedProductsViewModel> GetListForElectrician(string id)
+        {
+            var OutData = new List<UsedProductsViewModel>();
+
+            var JobData = _context.JobData.Where(i => i.Emp_Electr_ID == id).ToList();
+
+            foreach (var item in JobData)
+            {
+                var DataList = _context.UsedProductsData.Where(i => i.Job_ID == item.Job_ID).ToList();
+                if (DataList.Count>0)
+                {
+                    foreach (var usedProd in DataList)
+                    {
+                        var ProductData = _context.ProductsData.Where(i => i.PrID == usedProd.PrID).FirstOrDefault();
+
+                        var mappedData = _mapper.Map<UsedProductsViewModel>(usedProd);
+                        mappedData.PrName = ProductData.PrName;
+                        mappedData.TotCost = "Rs." + (ProductData.PrPrice * usedProd.PrQty).ToString("0.00");
+                        OutData.Add(mappedData);
+                    }
+
+                }
+            }
+
+            return OutData;
+        }
+
         internal static List<UsedProductsViewModel> GetListByJid(string id)
         {
             var DataList = _context.UsedProductsData.Where(i=>i.Job_ID==id).ToList();
             var GetList = new List<UsedProductsViewModel>();
             foreach (var item in DataList)
             {
+                var ProductData = _context.ProductsData.Where(i => i.PrID == item.PrID).FirstOrDefault();
+
                 var VM = _mapper.Map<UsedProductsViewModel>(item);
+                VM.PrName = ProductData.PrName;
+                VM.TotCost = "Rs." + (ProductData.PrPrice * item.PrQty).ToString("0.00");
                 GetList.Add(VM);
             }
             return GetList;
@@ -130,9 +167,13 @@ namespace Smart_Electrician_Support_System.Services
 
         public static UsedProductsViewModel Find(string id)
         {
-            var FoundRecord = _context.UsedProductsData.Find(id);
-            var VM = _mapper.Map<UsedProductsViewModel>(FoundRecord);
 
+            var FoundRecord = _context.UsedProductsData.Find(id);
+            var ProductData = _context.ProductsData.Where(i => i.PrID == FoundRecord.PrID).FirstOrDefault();
+
+            var VM = _mapper.Map<UsedProductsViewModel>(FoundRecord);
+            VM.PrName = ProductData.PrName;
+            VM.TotCost = "Rs."+(ProductData.PrPrice * FoundRecord.PrQty).ToString("0.00");
             return VM;
         }
 
