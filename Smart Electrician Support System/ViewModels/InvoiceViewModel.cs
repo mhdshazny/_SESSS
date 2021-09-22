@@ -29,9 +29,10 @@ namespace Smart_Electrician_Support_System.ViewModels
 
         [NotMapped]
         public List<UsedProductsViewModel> UsedPrds { get; set; }
-
         [NotMapped]
         public string JobSubject { get; set; }
+        [NotMapped]
+        public string CusProperty { get; set; }
         [NotMapped]
         public CustomerViewModel CustomerData { get; set; }
     }

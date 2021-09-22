@@ -36,6 +36,7 @@ namespace Smart_Electrician_Support_System.Services
 
                 obj.CustomerData = _mapper.Map<CustomerViewModel>(cusInfo);
                 obj.JobSubject = JobData.Job_Subject;
+                obj.CusProperty = cusInfo.CusProperty;
                 return obj;
 
             }
