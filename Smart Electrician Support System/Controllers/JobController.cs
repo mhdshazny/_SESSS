@@ -53,7 +53,7 @@ namespace Smart_Electrician_Support_System.Controllers
 
 
 
-                var GetList = JobService.GetList();
+                var GetList = JobService.GetListAll();
                 return View(GetList);
             }
         }
@@ -63,11 +63,26 @@ namespace Smart_Electrician_Support_System.Controllers
             return RedirectToAction("Index");
         }
 
-
-        //Electrician View
-        public IActionResult MyJobsElec()
+        //Finish Job
+        [HttpPost]
+        public async Task<IActionResult> FinishJobAsync(string Job_ID, DateTime JobEnd_Time)
         {
-            return View();
+            try
+            {
+                bool result = await _service.FinishJobAsync(Job_ID,JobEnd_Time);
+                if (result==true)
+                {
+                    return RedirectToAction("Details", "Job", new { id = Job_ID }, "JobEndingProcess Success");
+                }
+                else
+                {
+                    return RedirectToAction("Details", "Job", new { id = Job_ID }, "JobEndingProcess Failed");
+                }
+            }
+            catch (Exception er)
+            {
+                return RedirectToAction("Details","Job", new { id = Job_ID }, "JobEndingProcess Failed");
+            }
         }
 
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,5 +31,11 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DisplayName("Appt. Status")]
         [Required(ErrorMessage = "Please provide a valid status.")]
         public string Appo_Status { get; set; }
+
+        [NotMapped]
+        [DisplayName("Company Name")]
+        [Required(ErrorMessage = "Please provide a valid Customer Company Name.")]
+        public string CusProperty { get; set; }
+
     }
 }

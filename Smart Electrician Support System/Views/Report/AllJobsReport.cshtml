@@ -1,0 +1,112 @@
+﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.JobViewModel>
+@{
+    ViewData["Title"] = "JobReport";
+
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Jobs Report</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="jumbotron-fluid" style="text-align:center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:larger">
+        <h1 class="text-center">Job Report</h1>
+        <h4 class="text-center">All Job details from the beginning</h4>
+        <h5 class="text-center">Smart Electrician System </h5>
+        <h6 class="text-center" id="para1"></h6>
+    </div>
+    <br />
+    <h4 style="font-weight:bold; margin-bottom:2%;">Job Statistics</h4>
+    <div>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Jobs = <em style="color:crimson; font-style: normal;"> @Model.Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Completed Jobs = <em style="color:crimson; font-style: normal;"> @Model.Where(m => m.Job_Status == "Finished").Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+        <h5>Total Number of Pending Jobs = <em style="color:crimson; font-style: normal;"> @Model.Where(i=>i.Job_Status=="Pending").Count() </em></h5>
+        <hr style="height:1px;background-color:#cccccc;border:none; margin-top:1%; margin-bottom:1%; " noshade />
+    </div>
+    <h4 style="font-weight:bold;margin-top:5%; margin-bottom:2%; ">All Job Records</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Site_Inspected_By)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Site_Inspected_Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Emp_Electr_ID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobAssign_Time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobEnd_Time)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job_Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job_Descr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobEnd_TimeExpected)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job_Status)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Site_Inspected_By)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Site_Inspected_Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emp_Electr_ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobAssign_Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobEnd_Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Descr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JobEnd_TimeExpected)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job_Status)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

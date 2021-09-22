@@ -8,10 +8,10 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Hello @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpName")</h1>
-    <a id="genReport" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+    <h1 class="h3 mb-0 text-gray-1000">Hello @HttpContextAccessor.HttpContext.Session.GetString("SessionEmpName")</h1>
+    <div id="genReport" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
         <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-    </a>
+    </div>
 </div>
 
 <div id="pdfContainer">
@@ -27,7 +27,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Avarage Jobs per Month
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Average: @Model.AvgMonth   </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Average: @Model.AvgMonth.ToString("0.00")   </div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-chart-area fa-2x text-gray-300"></i>
@@ -46,7 +46,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Current Monthly Target (Jobs)
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"> Current Target: @Model.monthTarget</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"> Current Target: @Model.monthTarget.ToString("0.00")</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
@@ -67,7 +67,7 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.TargetAchieved</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@Model.TargetAchieved.ToString("0.00")</div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
@@ -206,7 +206,7 @@
 
                             <h4 class="small font-weight-bold">
                                 @*<input type="text" name="name" value="" />*@
-                                <a name="EID" asp-action="IndexCaller" asp-controller="EmployeeJobs" asp-route-data="@item.EmpID" > @item.EmpName ( @item.EmpID ) </a><span class="float-right">Complete! @item.score</span>
+                                <a name="EID" asp-action="IndexCaller" asp-controller="EmployeeJobs" asp-route-data="@item.EmpID" > @item.EmpName ( @item.EmpID ) </a><span class="float-right">Completed: @item.score.ToString("0.0")%</span>
                             </h4>
 
                             <div class="progress">
@@ -463,10 +463,10 @@
 
 
 
-    $("#genReport").click(function () {
-        var sHtml = $("#pdfContainer").html();
-        //sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag");
-        window.open('../Home/GeneratePDF?html=' + sHtml + '_blank');
-    });
+    //$("#genReport").click(function () {
+    //    var sHtml = $("#pdfContainer").html();
+    //    //sHtml = sHtml.replace(/</g, "StrTag").replace(/>/g, "EndTag");
+    //    window.open('../Home/GeneratePDF?html=' + sHtml + '_blank');
+    //});
 
 </script>

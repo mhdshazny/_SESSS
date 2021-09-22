@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Smart_Electrician_Support_System.ViewModels.ProductsViewModel>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<Smart_Electrician_Support_System.ViewModels.ProductsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,9 +12,13 @@
         <h1>Manage Products</h1>
     </div>
     <div class="card-body">
-        <div class="row">
-            @await Html.PartialAsync("CreatePartial", new Smart_Electrician_Support_System.ViewModels.ProductsViewModel())
-        </div>
+        @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Manager")
+        {
+            <div class="row">
+                @await Html.PartialAsync("CreatePartial", new Smart_Electrician_Support_System.ViewModels.ProductsViewModel())
+            </div>
+        }
+
         <hr />
         <div class="row">
             <div class="col-md col-lg col-sm col-xs-12">
@@ -51,9 +57,16 @@
                                     @Html.DisplayFor(modelItem => item.PrStatus)
                                 </td>
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.PrID"><i class="fas fa-edit"></i></a> |
-                                    <a asp-action="Details" asp-route-id="@item.PrID"><i class="fas fa-info-circle"></i></a> |
-                                    <a onclick="ConfirmDelete('@item.PrID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                    @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Manager")
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.PrID"><i class="fas fa-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a> 
+                                        <a asp-action="Details" asp-route-id="@item.PrID"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                        <a onclick="ConfirmDelete('@item.PrID')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Details" asp-route-id="@item.PrID"><i class="fas fa-info-circle"></i></a>
+                                    }
                                 </td>
                             </tr>
                         }

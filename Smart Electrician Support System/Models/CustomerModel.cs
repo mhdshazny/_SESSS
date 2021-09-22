@@ -17,5 +17,6 @@ namespace Smart_Electrician_Support_System.Models
         public string CusEmail { get; set; }
         public string CusPassw { get; set; }
         public string CusStatus { get; set; }
+        public string CusProperty { get; set; }
     }
 }

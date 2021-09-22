@@ -31,6 +31,19 @@ namespace Smart_Electrician_Support_System.Services
             return GetList;
         }
 
+        public static List<EmployeeViewModel> GetListExceptElectr()
+        {
+            var DataList = _context.EmployeeData.Where(i=>i.EmpCat_ID!= "EMPCAT0004"&&i.EmpCat_ID!= "EMPCAT0003").ToList();
+            var GetList = new List<EmployeeViewModel>();
+            foreach (var item in DataList)
+            {
+                var EmpCatVM = _mapper.Map<EmployeeViewModel>(item);
+                EmpCatVM.EmpCat_ID = EmpCat(EmpCatVM.EmpCat_ID);
+                GetList.Add(EmpCatVM);
+            }
+            return GetList;
+        }
+
         internal static List<EmployeeViewModel> GetListByType(string type)
         {
             var empType = _context.EmpCategoryData.Where(i => i.EmpCat_Type == type).FirstOrDefault();

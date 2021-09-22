@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,5 +26,14 @@ namespace Smart_Electrician_Support_System.ViewModels
         public string Inv_PaymentStatus { get; set; }
         [DisplayName("Invoice Status")]
         public string Inv_Status { get; set; }
+
+        [NotMapped]
+        public List<UsedProductsViewModel> UsedPrds { get; set; }
+        [NotMapped]
+        public string JobSubject { get; set; }
+        [NotMapped]
+        public string CusProperty { get; set; }
+        [NotMapped]
+        public CustomerViewModel CustomerData { get; set; }
     }
 }

@@ -1,11 +1,42 @@
-﻿@model Smart_Electrician_Support_System.ViewModels.JobViewModel
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@model Smart_Electrician_Support_System.ViewModels.JobViewModel
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
 }
 
-<h1>Details : @Model.Job_ID  : @Model.Job_Status</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <h1>Details : @Model.Job_ID  : @Model.Job_Status</h1>
+
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    @if (Model.Job_Status == "Finished")
+                    {
+                        <a asp-action="Invoice" asp-controller="Report" asp-route-id="@Model.Job_ID" name="Invoice" class="btn btn-block btn-primary">Generate Invoice <br /> <i class="fas fa-folder-open"></i></a>
+                    }
+                    else
+                    {
+                        <a href="#" name="Invoice" class="btn btn-block btn-primary disabled">Job Not Completed <br /> <i class="fas fa-folder-open"></i> </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+
+
+
+
+
+
 
 
 <div class="container-fluid">
@@ -104,7 +135,15 @@
                                     Required Components
                                 </dt>
                                 <dd class="col">
-                                    <a href="#">Click Here</a>
+                                    @if (Model.Job_Status == "Finished" || Model.Job_Status == "Closed" || Model.Job_Status == "Terminated")
+                                    {
+                                        <a href="#" class="disabled"> Job Finished/Closed</a>
+
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Index" asp-controller="UsedProducts"> Add More Products</a>
+                                    }
                                 </dd>
                             </dl>
                         </div>
@@ -130,8 +169,51 @@
                 <div class="card bg-danger">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col"><h3>Job Status : @Model.Job_Status</h3></div>
-                            <div class="col-8"><h3>Days Delayed : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @ViewBag.DateElapsed Days</h3></div>
+                            <div class="col-5"><h3>Job Status : @Model.Job_Status</h3></div>
+                            <div class="col-5"><h3>Days Delayed : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @ViewBag.DateElapsed Days</h3></div>
+                            <div class="col"><button class="btn  btn-primary btn-block" data-toggle="modal" data-target="#FinishModal">Finish the Job <i class="fas fa-check-circle"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Logout Modal-->
+                <div class="modal fade" id="FinishModal" tabindex="-1" role="dialog" aria-labelledby="FinishModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="col-lg-12">
+                            <form asp-action="FinishJob" asp-controller="Job" method="post">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ready to Finish?</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label asp-for="Job_ID" class="control-label"></label>
+                                                <input asp-for="Job_ID" class="form-control" value="@Model.Job_ID" readonly />
+                                                <span asp-validation-for="Job_ID" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label asp-for="JobEnd_Time" class="control-label"></label>
+                                                <input asp-for="JobEnd_Time" class="form-control" value="@DateTime.Now.ToString()" />
+                                                <span asp-validation-for="JobEnd_Time" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        @*Select "Finish" below if you are ready to end your current Job.*@
+                                        @*<input type="datetime" name="EndDT" class="input" value="@DateTime.Now.ToString()" />*@
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" name="submit" class="btn btn-primary" value="Finish" />
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -146,7 +228,7 @@
                     <hr />
                     <div class="row">
                         <div class="col-md col-lg col-sm col-xs-12">
-                            <table class="table" id="IndexTable">
+                            <table class="table" id="IndexTable2">
                                 <thead>
                                     <tr>
                                         <th>
@@ -156,10 +238,16 @@
                                             Product ID
                                         </th>
                                         <th>
+                                            Product Name
+                                        </th>
+                                        <th>
                                             Job_ID
                                         </th>
                                         <th>
                                             Product Qty
+                                        </th>
+                                        <th>
+                                            Total Cost
                                         </th>
                                         <th>
                                             Status
@@ -177,10 +265,16 @@
                                                 @item.PrID
                                             </td>
                                             <td>
+                                                @item.PrName
+                                            </td>
+                                            <td>
                                                 @item.Job_ID
                                             </td>
                                             <td>
                                                 @item.PrQty
+                                            </td>
+                                            <td>
+                                                @item.TotCost
                                             </td>
                                             <td>
                                                 @item.Status
@@ -198,12 +292,7 @@
     </div>
     <br />
     <div class="row">
-        <div class="col">
-            <input type="button" name="Invoice" value="Generate Invoice" class="btn btn-block btn-primary"/>
-        </div>
-        <div class="col">
-            <input type="button" name="JobReport" value="Generate Job Report" class="btn btn-block btn-success" />
-        </div>
+
     </div>
 </div>
 
@@ -217,9 +306,20 @@
 
 <div class="container-fluid mt-3">
     <div class="row">
+        <div class="col">
+            @if (HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContextAccessor.HttpContext.Session.GetString("SessionEmpRole") == "Manager")
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Job_ID" class="btn btn-primary btn-block">Edit</a>
 
-        <a asp-action="Edit" asp-route-id="@Model.Job_ID">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+            }
+            else
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Job_ID" class="btn btn-primary btn-block disabled">Edit</a>
+            }
+        </div>
+        <div class="col">
+            <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>
+        </div>
     </div>
 </div>
 

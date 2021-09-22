@@ -15,7 +15,7 @@ namespace Smart_Electrician_Support_System.Models
         public string Inv_GenBy { get; set; }
         public DateTime Inv_Date { get; set; }
         public string Job_ID { get; set; }
-        public double Inv_TotAmnt { get; set; }
+        public decimal Inv_TotAmnt { get; set; }
         public string Inv_PaymentStatus { get; set; }
         public string Inv_Status { get; set; }
     }

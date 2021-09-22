@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,5 +25,12 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DisplayName("Used Product Status")]
         [Required(ErrorMessage = "Please provide a valid Product Status.")]
         public string Status { get; set; }
+        [NotMapped]
+        [DisplayName("Product Name")]
+        public string PrName { get; set; }
+        [NotMapped]
+        [DisplayName("Total Cost")]
+        [DataType(DataType.Currency)]
+        public string TotCost { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Smart_Electrician_Support_System.Controllers
 
             ViewData["NewID"] = AppointmentService.NewID();
 
-            List<EmployeeViewModel> empLi = empLiDDL(EmployeeService.GetList());
+            List<EmployeeViewModel> empLi = empLiDDL(EmployeeService.GetListExceptElectr());
             ViewData["EmpList"] = new SelectList(empLi, "EmpID", "lName");
 
             List<CustomerViewModel> cusLi = cusLiDDL(CustomerService.GetList());

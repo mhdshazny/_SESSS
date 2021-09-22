@@ -10,65 +10,123 @@
 <h4>CustomerModel</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CusID" />
-            <div class="form-group">
-                <label asp-for="CusfName" class="control-label"></label>
-                <input asp-for="CusfName" class="form-control" />
-                <span asp-validation-for="CusfName" class="text-danger"></span>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusID" class="control-label"></label>
+                        <input asp-for="CusID" class="form-control" readonly />
+                        <span asp-validation-for="CusID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusGender" class="control-label"></label>
+                        <select class="custom-select" asp-for="CusGender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span asp-validation-for="CusGender" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CuslName" class="control-label"></label>
-                <input asp-for="CuslName" class="form-control" />
-                <span asp-validation-for="CuslName" class="text-danger"></span>
+            <div class="row">
+                <div class="col">
+
+                    <div class="form-group">
+                        <label asp-for="CusfName" class="control-label"></label>
+                        <input asp-for="CusfName" class="form-control" />
+                        <span asp-validation-for="CusfName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CuslName" class="control-label"></label>
+                        <input asp-for="CuslName" class="form-control" />
+                        <span asp-validation-for="CuslName" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CusNIC" class="control-label"></label>
-                <input asp-for="CusNIC" class="form-control" />
-                <span asp-validation-for="CusNIC" class="text-danger"></span>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusProperty" class="control-label"></label>
+                        <input asp-for="CusProperty" class="form-control" />
+                        <span asp-validation-for="CusProperty" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CusNIC" class="control-label"></label>
+                        <input asp-for="CusNIC" class="form-control" />
+                        <span asp-validation-for="CusNIC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusAddress" class="control-label"></label>
+                        <textarea asp-for="CusAddress" class="form-control" style="height:100px"></textarea>
+                        <span asp-validation-for="CusAddress" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CusGender" class="control-label"></label>
-                <input asp-for="CusGender" class="form-control" />
-                <span asp-validation-for="CusGender" class="text-danger"></span>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusContact" class="control-label"></label>
+                        <input asp-for="CusContact" class="form-control" />
+                        <span asp-validation-for="CusContact" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusEmail" class="control-label"></label>
+                        <input asp-for="CusEmail" class="form-control" />
+                        <span asp-validation-for="CusEmail" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CusAddress" class="control-label"></label>
-                <input asp-for="CusAddress" class="form-control" />
-                <span asp-validation-for="CusAddress" class="text-danger"></span>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusPassw" class="control-label"></label>
+                        <input type="password" asp-for="CusPassw" class="form-control" />
+                        <span asp-validation-for="CusPassw" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="CusStatus" class="control-label"></label>
+                        <select class="custom-select" asp-for="CusStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                        <span asp-validation-for="CusStatus" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CusContact" class="control-label"></label>
-                <input asp-for="CusContact" class="form-control" />
-                <span asp-validation-for="CusContact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CusEmail" class="control-label"></label>
-                <input asp-for="CusEmail" class="form-control" />
-                <span asp-validation-for="CusEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CusPassw" class="control-label"></label>
-                <input asp-for="CusPassw" class="form-control" />
-                <span asp-validation-for="CusPassw" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CusStatus" class="control-label"></label>
-                <input asp-for="CusStatus" class="form-control" />
-                <span asp-validation-for="CusStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <br />
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary btn-block" />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <a type="button" asp-action="Index" class="btn btn-danger btn-block">Back to List</a>
+                    </div>
+                </div>
+
             </div>
         </form>
+        <br />
+        <br />
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

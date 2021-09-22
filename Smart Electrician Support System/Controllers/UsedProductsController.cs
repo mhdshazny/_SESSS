@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +32,26 @@ namespace Smart_Electrician_Support_System.Controllers
         {
             ViewData["NewID"] = UsedProductsService.NewID();
             ViewData["PrdList"] = new SelectList(ProductsService.GetList(), "PrID", "PrName");
-            ViewData["JobList"] = new SelectList(JobService.GetList(), "Job_ID", "Job_Subject");
 
-            var GetList = UsedProductsService.GetList();
-            return View(GetList);
+            if (HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContext.Session.GetString("SessionEmpRole") == "Manager")
+            {
+                //var data = JobService.GetListForDD();
+                
+                ViewData["JobList"] = new SelectList(JobService.GetListForDD(), "Job_ID", "Job_Subject");
+                var GetList = UsedProductsService.GetList();
+                return View(GetList);
+
+            }
+            else
+            {
+                var id = HttpContext.Session.GetString("SessionEmpID");
+                ViewData["JobList"] = new SelectList(JobService.GetListForElectrician(id), "Job_ID", "Job_Subject");
+                var GetList = UsedProductsService.GetListForElectrician(id);
+                return View(GetList);
+            }
+
+
+
         }
 
         // GET: UsedProducts/Details/5

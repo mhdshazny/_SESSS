@@ -27,10 +27,27 @@ namespace Smart_Electrician_Support_System.Services
             foreach (var item in DataList)
             {
                 var VM = _mapper.Map<AppointmentViewModel>(item);
+                VM.CusProperty = cusProperty(item.Cus_ID);
                 GetList.Add(VM);
             }
             return GetList;
         }
+
+        private static string cusProperty(string cus_ID)
+        {
+            try
+            {
+                var data = _context.CustomerData.Where(i=>i.CusID==cus_ID).FirstOrDefault();
+                return data.CusProperty;
+            }
+            catch (Exception er)
+            {
+                return "Error Occured";
+            }
+
+
+        }
+
         public static List<AppointmentViewModel> GetPendingList()
         {
             var DataList = _context.AppointmentData.Where(i=>i.Appo_Status=="Pending").ToList();

@@ -31,9 +31,9 @@ namespace Smart_Electrician_Support_System.ViewModels
         [DataType(DataType.DateTime)]
         [Required(ErrorMessage = "Job Assigning DateTime. (Better to Assign within the Day)")]
         public DateTime JobAssign_Time { get; set; }
-        [DisplayName("Job End DateTime (Expected)")]
+        [DisplayName("Job Ended DateTime")]
         [DataType(DataType.DateTime)]
-        [Required(ErrorMessage = "Expected DateTime to Finish the JOB. (Set According to Urgency)")]
+        [Required(ErrorMessage = "DateTime the JOB Finish.")]
         public DateTime JobEnd_Time { get; set; }
         [DisplayName("Job Subject")]
         [Required(ErrorMessage = "Suitable Subject Needed to proceed")]
