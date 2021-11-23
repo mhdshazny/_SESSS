@@ -18,12 +18,14 @@ namespace Smart_Electrician_Support_System.Controllers
     {
         private readonly DbConnectionClass _context;
         private ProductsService _service;
+        private ProductCategoryService _PrCatService;
 
 
         public ProductsController(DbConnectionClass context, IMapper mapper)
         {
             _context = context;
             _service = new ProductsService(context, mapper);
+            _PrCatService = new ProductCategoryService(context, mapper);
 
             //CultureInfo ci = new CultureInfo("si-LK");
             //ci.NumberFormat.CurrencySymbol = "Rs ";
@@ -37,7 +39,7 @@ namespace Smart_Electrician_Support_System.Controllers
         {
 
             ViewData["NewID"] = ProductsService.NewID();
-
+            ViewData["PrCategoryList"] = new SelectList(_PrCatService.GetList(), "PrdCat_ID", "PrdCat_Type");
             var GetList = ProductsService.GetList();
             return View(GetList);
         }

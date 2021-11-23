@@ -37,6 +37,24 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
+                    <label asp-for="PrdCat_ID" class="control-label"></label>
+                    @*<input asp-for="PrdCat_ID" class="form-control" />*@
+                    @Html.DropDownListFor(m => m.PrdCat_ID, ViewData["PrCategoryList"] as SelectList, "-Select Relevant Category-", new { @class = "form-control" })
+
+                    <span asp-validation-for="PrdCat_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrQty" class="control-label"></label>
+                    <input type="number" asp-for="PrQty" min="0" class="form-control" />
+                    <span asp-validation-for="PrQty" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
                     <label asp-for="PrPrice" class="control-label"></label>
                     <input asp-for="PrPrice" class="form-control" />
                     <span asp-validation-for="PrPrice" class="text-danger"></span>

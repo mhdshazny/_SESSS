@@ -24,6 +24,7 @@ namespace Smart_Electrician_Support_System.Services
         public DbSet<JobModel> JobData { get; set; }
         public DbSet<DashTargetModel> DashTargetData { get; set; }
         public DbSet<InvoiceModel> InvoiceData { get; set; }
+        public DbSet<ProductCategoryModel> PrCategoryData { get; set; }
 
     }
 }

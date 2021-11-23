@@ -12,11 +12,13 @@ namespace Smart_Electrician_Support_System.Services
     {
         private static DbConnectionClass _context;
         private static IMapper _mapper;
+        private readonly ProductCategoryService catService;
 
         public ProductsService(DbConnectionClass context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            catService = new ProductCategoryService(context, mapper);
         }
 
         public static List<ProductsViewModel> GetList()
@@ -26,6 +28,20 @@ namespace Smart_Electrician_Support_System.Services
             foreach (var item in DataList)
             {
                 var VM = _mapper.Map<ProductsViewModel>(item);
+                VM.category = ProductCategoryService.FindPrCat(VM.PrdCat_ID);
+                GetList.Add(VM);
+            }
+            return GetList;
+        }
+        
+        public static List<ProductsViewModel> GetListForDD()
+        {
+            var DataList = _context.ProductsData.Where(i=>i.PrQty>0).ToList();
+            var GetList = new List<ProductsViewModel>();
+            foreach (var item in DataList)
+            {
+                var VM = _mapper.Map<ProductsViewModel>(item);
+                VM.PrName = VM.PrName + " _________________________ Available Quantity :  " + VM.PrQty + "";
                 GetList.Add(VM);
             }
             return GetList;

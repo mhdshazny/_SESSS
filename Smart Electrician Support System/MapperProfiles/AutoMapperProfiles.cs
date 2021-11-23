@@ -32,6 +32,8 @@ namespace Smart_Electrician_Support_System.MapperProfiles
                     .ReverseMap();
             CreateMap<DashTargetModel, DashTargetViewModel>()
                     .ReverseMap();
+            CreateMap<ProductCategoryModel, ProductCategoryViewModel>()
+                    .ReverseMap();
         }
     }
 }

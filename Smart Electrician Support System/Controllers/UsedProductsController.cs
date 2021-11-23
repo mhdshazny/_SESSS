@@ -28,10 +28,17 @@ namespace Smart_Electrician_Support_System.Controllers
         }
 
         // GET: UsedProducts
-        public IActionResult Index()
+        public IActionResult Index(string PrID, string JID, string Qty)
         {
+            if (Qty!=null|| PrID!=null|| JID!=null)
+            {
+                ViewBag.Msg = "Limit Exceeded";
+                ViewBag.Qty = Qty;
+                ViewBag.PrID = PrID;
+                ViewBag.JID = JID;
+            }
             ViewData["NewID"] = UsedProductsService.NewID();
-            ViewData["PrdList"] = new SelectList(ProductsService.GetList(), "PrID", "PrName");
+            ViewData["PrdList"] = new SelectList(ProductsService.GetListForDD(), "PrID", "PrName");
 
             if (HttpContext.Session.GetString("SessionEmpRole") == "Admin" || HttpContext.Session.GetString("SessionEmpRole") == "Manager")
             {
@@ -81,14 +88,19 @@ namespace Smart_Electrician_Support_System.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(UsedProductsViewModel collection)
+        public async Task<IActionResult> Create(UsedProductsViewModel collection)
         {
             try
             {
                 if (collection != null)
                 {
                     collection.Pr_Used_ID = UsedProductsService.NewID();
-                    bool AddData = UsedProductsService.Add(collection);
+                    bool QtyLimit = UsedProductsService.QtyLimitCheck(collection);
+                    if (!QtyLimit)
+                    {
+                        return RedirectToAction(nameof(Index), new {PrID= collection.PrID, JID=collection.Job_ID , Qty=collection.PrQty });
+                    }
+                    bool AddData = await UsedProductsService.Add(collection);
 
                     if (AddData)
                     {

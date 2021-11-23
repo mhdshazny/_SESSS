@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Smart_Electrician_Support_System.Models;
 using Smart_Electrician_Support_System.ViewModels;
 using System;
@@ -15,11 +16,13 @@ namespace Smart_Electrician_Support_System.Services
 
         private static DbConnectionClass _context;
         private static IMapper _mapper;
+        private readonly ProductsService _prdService;
 
         public UsedProductsService(DbConnectionClass context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
+            _prdService = new ProductsService(context, mapper);
         }
 
         public static List<UsedProductsViewModel> GetList()
@@ -39,16 +42,35 @@ namespace Smart_Electrician_Support_System.Services
             return GetList;
         }
 
-        public static bool Add(UsedProductsViewModel collection)
+        public static async Task<bool> Add(UsedProductsViewModel collection)
         {
             try
             {
                 if (collection != null)
                 {
-                    var MapData = _mapper.Map<UsedProductsModel>(collection);
-                    _context.Add(MapData);
-                    _context.SaveChanges();
-                    return true;
+                    var StockData = ProductsService.Find(collection.PrID);
+                    bool LimitCheck = QtyLimitCheck(collection);
+                    bool stockUpdated = false;
+
+                    if (LimitCheck)
+                    {
+                        UsedProductsModel Final = _mapper.Map<UsedProductsModel>(collection);
+                        stockUpdated = await DeductFromStockAsync(Final);
+                    }
+                    /////////////   
+                    if (stockUpdated)
+                    {
+
+                        var MapData = _mapper.Map<UsedProductsModel>(collection);
+                        _context.Add(MapData);
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
                 else
                     return false;
@@ -71,10 +93,36 @@ namespace Smart_Electrician_Support_System.Services
             {
                 if (collection != null)
                 {
-                    var MapData = _mapper.Map<UsedProductsModel>(collection);
-                    _context.Update(MapData);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    var oldData = Find(collection.Pr_Used_ID);
+                    bool stockUpdated = true;
+
+                    if (collection.PrQty>oldData.PrQty)
+                    {
+                        int extraQty = collection.PrQty - oldData.PrQty;
+                        UsedProductsModel Final = _mapper.Map<UsedProductsModel>(collection);
+                        Final.PrQty = extraQty;
+
+                        stockUpdated = await DeductFromStockAsync(Final);
+                    }
+                    else if (collection.PrQty<oldData.PrQty)
+                    {
+                        int extraQty = oldData.PrQty - collection.PrQty;
+                        UsedProductsModel Final = _mapper.Map<UsedProductsModel>(collection);
+                        Final.PrQty = extraQty;
+
+                        stockUpdated = await ReturnToStockAsync(Final);
+                    }
+                    if (stockUpdated)
+                    {
+                        var MapData = _mapper.Map<UsedProductsModel>(collection);
+                        _context.Update(MapData);
+                        await _context.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                     return false;
@@ -84,6 +132,17 @@ namespace Smart_Electrician_Support_System.Services
                 err.ToString();
                 return false;
             }
+        }
+
+        internal static bool QtyLimitCheck(UsedProductsViewModel collection)
+        {
+            var ProductInfo = ProductsService.Find(collection.PrID);
+            if (ProductInfo.PrQty >= collection.PrQty)
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
         internal static List<UsedProductsViewModel> GetListForElectrician(string id)
@@ -151,9 +210,19 @@ namespace Smart_Electrician_Support_System.Services
                 if (id != null)
                 {
                     UsedProductsModel FoundRecord = _context.UsedProductsData.Find(id);
-                    _context.Remove(FoundRecord);
-                    await _context.SaveChangesAsync();
-                    return true;
+                    bool stockUpdate = await ReturnToStockAsync(FoundRecord);
+                    if (stockUpdate)
+                    {
+                        _context.Remove(FoundRecord);
+                        await _context.SaveChangesAsync();
+                        return true;
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
                 }
                 else
                     return false;
@@ -178,6 +247,70 @@ namespace Smart_Electrician_Support_System.Services
         }
 
 
+        /// <summary>
+        /// //////////
+        /// </summary>
+
+        internal static async Task<bool> DeductFromStockAsync(UsedProductsModel FoundRecord)
+        {
+            try
+            {
+                if (FoundRecord != null)
+                {
+
+                    ProductsViewModel productToUpdate = ProductsService.Find(FoundRecord.PrID);
+
+                    productToUpdate.PrQty = productToUpdate.PrQty - FoundRecord.PrQty;
+
+                    ProductsModel Final = _mapper.Map<ProductsModel>(productToUpdate);
+
+
+
+                    bool updation = await ProductsService.Update(productToUpdate);
+                    //_context.Update(Final);
+                    //await _context.SaveChangesAsync();
+                    return updation;
+                }
+                else
+                    return false;
+            }
+            catch (Exception er)
+            {
+
+                return false;
+            }
+        }
+
+        internal static async Task<bool> ReturnToStockAsync(UsedProductsModel FoundRecord)
+        {
+            try
+            {
+                if (FoundRecord != null)
+                {
+                    
+                    ProductsModel productToUpdate = await _context.ProductsData.Where(i=>i.PrID==FoundRecord.PrID).FirstOrDefaultAsync();
+
+                    productToUpdate.PrQty = productToUpdate.PrQty + FoundRecord.PrQty;
+
+                    ProductsModel Final = _mapper.Map<ProductsModel>(productToUpdate);
+
+                    ProductsViewModel VM = _mapper.Map<ProductsViewModel>(productToUpdate);
+
+
+                    bool updation = await ProductsService.Update(VM);
+                    //_context.Update(Final);
+                    //await _context.SaveChangesAsync();
+                    return updation;
+                }
+                else
+                    return false;
+            }
+            catch (Exception er)
+            {
+
+                return false;
+            }
+        }
 
 
 

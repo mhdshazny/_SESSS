@@ -1,7 +1,12 @@
 ﻿@model Smart_Electrician_Support_System.ViewModels.UsedProductsViewModel
 @{
+    if (ViewBag.Qty !=null)
+    {
+        Model.PrQty = int.Parse(ViewBag.Qty);
+    }
     Model.Pr_Used_ID = ViewData["NewID"].ToString();
-
+    Model.PrID = ViewBag.PrID;
+    Model.Job_ID = ViewBag.JID;
 }
 
 <div class="col-md-12 col-lg-12 col-sm-12">
@@ -38,8 +43,8 @@
             <div class="col">
                 <div class="form-group">
                     <label asp-for="PrQty" class="control-label"></label>
-                    <input asp-for="PrQty" class="form-control" />
-                    <span asp-validation-for="PrQty" class="text-danger"></span>
+                    <input asp-for="PrQty" class="form-control" min="0" />
+                    <span asp-validation-for="PrQty" class="text-danger">@ViewBag.Msg</span>
                 </div>
             </div>
         </div>

@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace Smart_Electrician_Support_System.Models
 {
-    [Table("Tbl_Products")]
-    public class ProductsModel
+    [Table("Tbl_ProductCategory")]
+    public class ProductCategoryModel
     {
         [Key]
-        public string PrID { get; set; }
-        public string PrName { get; set; }
-        public string PrDescr { get; set; }
-        public Decimal PrPrice { get; set; }
-        public string PrStatus { get; set; }
         public int PrdCat_ID { get; set; }
-        public int PrQty { get; set; }
-
+        public string PrdCat_Type { get; set; }
+        public string PrdCat_Description { get; set; }
+        public string PrdCat_Status { get; set; }
     }
 }

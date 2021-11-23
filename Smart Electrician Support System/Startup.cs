@@ -37,7 +37,7 @@ namespace Smart_Electrician_Support_System
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(5);//You can set Time   
             });
-            services.AddDbContext<DbConnectionClass>(options => options.UseSqlServer(Configuration.GetConnectionString("ConString")));
+            services.AddDbContext<DbConnectionClass>(options => options.UseSqlServer(Configuration.GetConnectionString("ConString")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             //Auto Mapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllersWithViews()

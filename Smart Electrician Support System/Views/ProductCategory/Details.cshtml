@@ -1,0 +1,43 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.ProductCategoryViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_ManagementDashboardLayout.cshtml";
+}
+<div>
+    <h4>Employee Category Info</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.PrdCat_ID)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.PrdCat_ID)
+        </dd>
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.PrdCat_Type)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.PrdCat_Type)
+        </dd>
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.PrdCat_Description)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.PrdCat_Description)
+        </dd>
+        <dt class="col-5">
+            @Html.DisplayNameFor(model => model.PrdCat_Status)
+        </dt>
+        <dd class="col-5">
+            @Html.DisplayFor(model => model.PrdCat_Status)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+
+    <div class="col">
+        <div class="form-group">
+            <a asp-action="Index" asp-controller="ProductCategory" class="btn btn-block btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>

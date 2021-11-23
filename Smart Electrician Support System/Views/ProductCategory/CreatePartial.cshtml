@@ -1,0 +1,60 @@
+﻿@model Smart_Electrician_Support_System.ViewModels.ProductCategoryViewModel
+
+
+<div class="col-md-12 col-lg-12 col-sm-12">
+    <form method="post" asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrdCat_ID" class="control-label"></label>
+                    <input value="@ViewData["NewID"].ToString()" class="form-control" readonly />
+                    <span asp-validation-for="PrdCat_ID" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrdCat_Type" class="control-label"></label>
+                    <input asp-for="PrdCat_Type" class="form-control" />
+                    <span asp-validation-for="PrdCat_Type" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrdCat_Description" class="control-label"></label>
+                    <textarea asp-for="PrdCat_Description" class="form-control"></textarea>
+                    <span asp-validation-for="PrdCat_Description" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label asp-for="PrdCat_Status" class="control-label"></label>
+                    <select class="custom-select" asp-for="PrdCat_Status">
+                        <option value="Active">Active</option>
+                        <option value="InActive">InActive</option>
+                    </select>
+                    <span asp-validation-for="PrdCat_Status" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+            </div>
+            <div class="col">
+
+                <input type="reset" value="Cancel" class="btn btn-danger btn-block" />
+            </div>
+        </div>
+    </form>
+</div>
